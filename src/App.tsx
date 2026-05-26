@@ -317,11 +317,11 @@ export default function App() {
 
         {/* Sliding Side Navigation Panel in Pine Green (exactly as in Image 2) */}
         <div 
-          className={`fixed left-0 top-0 bottom-0 w-full max-w-[460px] bg-[#154736] text-white flex flex-col pointer-events-auto shadow-2xl transition-transform duration-500 z-40 ease-out ${
+          className={`fixed left-0 top-0 bottom-0 w-full max-w-[360px] bg-[#154736] text-white flex flex-col pointer-events-auto shadow-2xl transition-transform duration-500 z-40 ease-out ${
             isSideMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          <div className="flex flex-col h-full pt-[120px] pb-12 pr-8 pl-24 md:pl-28 justify-between">
+          <div className="flex flex-col h-full pt-[120px] pb-12 pr-6 pl-24 md:pl-26 justify-between">
             <div>
               {/* Site Eyebrow */}
               <p className="font-sans text-[10px] sm:text-[11px] text-[#8fa499] uppercase tracking-[3px] mb-12">
@@ -621,7 +621,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ==================== OUR PROJECT ON THE MAP (INTERACTIVE GEOGRAPHY) ==================== */}
+      {/* ==================== OUR PROJECT ON THE MAP (GEOGRAPHY) ==================== */}
       <section id="map" className="py-24 px-6 md:px-12 bg-brand-cream border-b border-brand-line/40">
         <div className="container mx-auto">
           
@@ -636,60 +636,14 @@ export default function App() {
             
             {/* Left Column: Vertical Rounded Map Frame matching pixel-perfect ratio */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative bg-[#F1EBE0] rounded-[10px] overflow-hidden shadow-md w-full max-w-[340px] aspect-[31/55] border border-brand-line/40 group">
-                
+              <div className="relative bg-[#F1EBE0] rounded-[10px] overflow-hidden shadow-md w-full max-w-[340px] aspect-[31/55] border border-brand-line/40">
                 <img 
                   src={content.mapSection.mapImage} 
                   alt="La Isla — Loliem Neighborhood map" 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                   referrerPolicy="no-referrer"
                 />
-
-                {/* Hotspot Pin points corresponding to item index */}
-                {[
-                  { id: 1, x: "28%", y: "74%", name: "Galgibaga Beach" },
-                  { id: 2, x: "42%", y: "59%", name: "The Lalit Golf Resort" },
-                  { id: 3, x: "55%", y: "50%", name: "Cotiago Wildlife" },
-                  { id: 4, x: "58%", y: "65%", name: "NH 66 Expressway" },
-                  { id: 5, x: "72%", y: "78%", name: "Rich agricultural belt" }
-                ].map(pin => (
-                  <button
-                    key={pin.id}
-                    onClick={() => setActiveMapPin(pin.id)}
-                    onMouseEnter={() => setActiveMapPin(pin.id)}
-                    className="absolute z-20 transition-transform duration-300 hover:scale-125"
-                    style={{ left: pin.x, top: pin.y }}
-                  >
-                    <div className="relative flex items-center justify-center">
-                      <span className={`absolute inline-flex h-8 w-8 rounded-full opacity-30 transition-all ${activeMapPin === pin.id ? 'bg-[#226F56] animate-ping' : 'bg-transparent'}`} />
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center font-serif text-xs font-semibold shadow-sm transition-all ${activeMapPin === pin.id ? 'bg-[#226F56] text-white' : 'bg-white/95 text-[#226F56] border border-[#226F56]/20'}`}>
-                        {pin.id}
-                      </div>
-
-                      {/* Floating marker label */}
-                      <AnimatePresence>
-                        {activeMapPin === pin.id && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 5 }}
-                            className="absolute bottom-9 bg-brand-ink text-white font-sans text-[10px] font-semibold px-2.5 py-1 rounded shadow-lg whitespace-nowrap z-40 flex items-center gap-1"
-                          >
-                            <MapPin className="w-3 h-3 text-green-soft" />
-                            {pin.name}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </button>
-                ))}
-
-                {/* Sub-label instructions hint */}
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm border border-brand-line/20 px-2.5 py-1 rounded text-[9px] uppercase tracking-widest text-[#231F20] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-                  Interactive Distance Map
-                </div>
-
               </div>
             </div>
 
@@ -699,19 +653,17 @@ export default function App() {
                 {content.mapSection.items.map((item) => (
                   <div
                     key={item.id}
-                    onClick={() => setActiveMapPin(item.id)}
-                    onMouseEnter={() => setActiveMapPin(item.id)}
-                    className={`flex items-start gap-5 py-6 border-b border-brand-line/60 transition-all duration-350 cursor-pointer ${activeMapPin === item.id ? 'bg-brand-sage/20 pl-2' : ''}`}
+                    className="flex items-start gap-5 py-6 border-b border-brand-line/60"
                   >
                     {/* Perfect Solid Green Circle with White Number */}
                     <div 
-                      className={`w-9 h-9 md:w-10 md:h-10 rounded-full bg-[#226F56] text-white flex items-center justify-center font-sans text-sm md:text-base font-normal flex-shrink-0 shadow-sm transition-transform duration-300 ${activeMapPin === item.id ? 'scale-105 saturate-125' : ''}`}
+                      className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-[#226F56] text-white flex items-center justify-center font-sans text-sm md:text-base font-normal flex-shrink-0 shadow-sm"
                     >
                       {item.id}
                     </div>
                     
                     <div className="flex-1">
-                      <h4 className={`font-sans font-normal text-[#231F20] text-lg md:text-[20px] tracking-wide leading-tight transition-colors ${activeMapPin === item.id ? 'text-[#226F56] font-medium' : ''}`}>
+                      <h4 className="font-sans font-normal text-[#231F20] text-lg md:text-[20px] tracking-wide leading-tight">
                         {item.place}
                       </h4>
                       <p className="font-sans text-xs md:text-sm text-[#6E7269] font-light mt-1.5">
@@ -748,7 +700,7 @@ export default function App() {
             {/* Highlights List box */}
             <div className="bg-brand-cream/80 border border-brand-line/45 rounded-2xl p-8 shadow-md">
               <h3 className="font-sans text-xs uppercase tracking-[4px] text-green-brand font-semibold mb-8 border-b border-brand-line/40 pb-4">
-                👑 {content.projectInfo.highlights.title}
+                {content.projectInfo.highlights.title}
               </h3>
               
               <ul className="space-y-4">

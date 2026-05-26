@@ -111,15 +111,15 @@
           "items": [
             {
               "label": "Front View",
-              "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=800"
+              "image": "/assets/renders/2BHK_FrontView.jpg"
             },
             {
               "label": "GF Verandah",
-              "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
+              "image": "/assets/renders/2BHK_VerandahView.jpg"
             },
             {
               "label": "Pool Side View",
-              "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800"
+              "image": "/assets/renders/2BHK_PoolSideView.jpg"
             }
           ]
         },
@@ -128,15 +128,15 @@
           "items": [
             {
               "label": "Front View",
-              "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800"
+              "image": "/assets/renders/3BHK_FrontView.jpg"
             },
             {
               "label": "Verandah View",
-              "image": "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800"
+              "image": "/assets/renders/3BHK_VerandahView.jpg"
             },
             {
               "label": "Back View",
-              "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800"
+              "image": "/assets/renders/3BHK_BackView.jpg"
             }
           ]
         },
@@ -144,16 +144,20 @@
           "name": "4 BHK",
           "items": [
             {
-              "label": "Grand Facade (Coming Soon)",
-              "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800"
+              "label": "Front View",
+              "image": "/assets/renders/4BHK_FrontView.jpg"
             },
             {
-              "label": "Infinity Pool Lounge (Coming Soon)",
-              "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"
+              "label": "GF Verandah",
+              "image": "/assets/renders/4BHK_GF_Verandah.jpg"
             },
             {
-              "label": "Master Courtyard (Coming Soon)",
-              "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800"
+              "label": "FF Verandah",
+              "image": "/assets/renders/4BHK_FF_Verandah.jpg"
+            },
+            {
+              "label": "Back View",
+              "image": "/assets/renders/4BHK_BackView.jpg"
             }
           ]
         }
