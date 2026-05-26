@@ -69,6 +69,7 @@
   },
   "projectInfo": {
     "title": "About the project",
+    "bgImage": "/assets/Background/Project_BG.png",
     "highlights": {
       "title": "Highlights",
       "items": [

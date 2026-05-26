@@ -826,24 +826,48 @@ export default function App() {
       {/* ==================== THE ESTATE SPECIFICATION & DESIGN HIGHLIGHTS ==================== */}
       <section id="project" className="py-24 px-6 md:px-12 bg-brand-sage relative overflow-hidden">
         
-        {/* Subtle decorative bottom gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-brand-line/10 to-transparent pointer-events-none" />
+        {/* Optional background image with a subtle blur */}
+        {content.projectInfo.bgImage && (
+          <div className="absolute inset-0 z-0 animate-fade-in overflow-hidden">
+            <img 
+              src={content.projectInfo.bgImage} 
+              alt="Project background scene" 
+              className="w-full h-full object-cover object-center select-none blur-[4px] scale-[1.03]"
+              referrerPolicy="no-referrer"
+            />
+            {/* Elegant dark-sage multi-layered overlay for ultimate white text visibility */}
+            <div className="absolute inset-0 bg-[#0c2a20]/30 mix-blend-multiply z-10" />
+            <div className="absolute inset-0 bg-black/20 z-10" />
+          </div>
+        )}
 
-        <div className="container mx-auto">
+        {/* Subtle decorative bottom gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-brand-line/10 to-transparent pointer-events-none z-10" />
+
+        <div className="container mx-auto relative z-21">
           
+          {/* Section Heading with high contrast conditional text details */}
           <div className="text-center max-w-xl mx-auto mb-16">
-            <span className="font-sans text-xs uppercase tracking-[4px] text-green-brand block mb-2">Sustainable Elegance</span>
-            <h2 className="font-serif text-3xl md:text-5xl font-light text-brand-ink">
+            <span className={`font-sans text-xs uppercase tracking-[4px] block mb-2 ${content.projectInfo.bgImage ? 'text-white/80 drop-shadow-sm' : 'text-green-brand'}`}>Sustainable Elegance</span>
+            <h2 className={`font-serif text-3xl md:text-5xl font-light ${content.projectInfo.bgImage ? 'text-white drop-shadow-md' : 'text-brand-ink'}`}>
               {content.projectInfo.title}
             </h2>
-            <div className="w-16 h-0.5 bg-green-brand mx-auto my-5" />
+            <div className={`w-16 h-0.5 mx-auto my-5 ${content.projectInfo.bgImage ? 'bg-white/40' : 'bg-green-brand'}`} />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             
-            {/* Highlights List box */}
-            <div className="bg-brand-cream/80 border border-brand-line/45 rounded-2xl p-8 shadow-md">
-              <h3 className="font-sans text-xs uppercase tracking-[4px] text-green-brand font-semibold mb-8 border-b border-brand-line/40 pb-4">
+            {/* Highlights List box - Translucent styling if bgImage is active */}
+            <div className={`border rounded-2xl p-8 shadow-md transition-all ${
+              content.projectInfo.bgImage 
+                ? 'bg-[#154736]/35 backdrop-blur-[6px] border-white/20 text-white shadow-xl' 
+                : 'bg-brand-cream/80 border-brand-line/45 shadow-md'
+            }`}>
+              <h3 className={`font-sans text-xs uppercase tracking-[4px] font-semibold mb-8 border-b pb-4 ${
+                content.projectInfo.bgImage 
+                  ? 'text-white border-white/20' 
+                  : 'text-green-brand border-brand-line/40'
+              }`}>
                 {content.projectInfo.highlights.title}
               </h3>
               
@@ -857,51 +881,86 @@ export default function App() {
                     transition={{ delay: index * 0.05 }}
                     className="flex gap-4 items-start"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-green-brand flex-shrink-0 mt-0.5" />
-                    <span className="font-sans text-brand-ink font-light leading-relaxed">{highlight}</span>
+                    <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${content.projectInfo.bgImage ? 'text-white' : 'text-green-brand'}`} />
+                    <span className={`font-sans font-light leading-relaxed ${content.projectInfo.bgImage ? 'text-white/95' : 'text-brand-ink'}`}>{highlight}</span>
                   </motion.li>
                 ))}
               </ul>
             </div>
 
-            {/* Loom House Pillars Card view */}
+            {/* Loom House Pillars Card view - Translucent styling if bgImage is active */}
             <div className="space-y-6">
-              <div className="bg-brand-cream/40 p-6 rounded-2xl border border-brand-line/30 mb-2">
-                <span className="font-sans text-[10px] text-green-brand font-semibold uppercase tracking-[3px] block mb-2">Exclusive Clubhouse</span>
-                <h3 className="font-serif text-3xl text-brand-ink font-light mb-4">
+              <div className={`p-6 rounded-2xl border mb-2 transition-all ${
+                content.projectInfo.bgImage 
+                  ? 'bg-white/10 backdrop-blur-[6px] border-white/25 text-white shadow-xl' 
+                  : 'bg-brand-cream/40 border-brand-line/30'
+              }`}>
+                <span className={`font-sans text-[10px] font-semibold uppercase tracking-[3px] block mb-2 ${content.projectInfo.bgImage ? 'text-white/70' : 'text-green-brand'}`}>Exclusive Clubhouse</span>
+                <h3 className={`font-serif text-3xl font-light mb-4 ${content.projectInfo.bgImage ? 'text-white' : 'text-brand-ink'}`}>
                   {content.projectInfo.clubhouse.title}
                 </h3>
-                <p className="font-sans font-light text-brand-muted leading-relaxed text-base">
+                <p className={`font-sans font-light leading-relaxed text-base ${content.projectInfo.bgImage ? 'text-white/90' : 'text-brand-muted'}`}>
                   {content.projectInfo.clubhouse.description}
                 </p>
               </div>
 
               {/* 4 Pillars Interactive Layout list */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {content.projectInfo.clubhouse.pillars.map((pillar, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActivePillar(activePillar === index ? null : index)}
-                    className={`text-left p-6 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer ${activePillar === index ? 'bg-green-brand text-white border-green-brand shadow-lg' : 'bg-brand-cream border-brand-line/50 hover:bg-brand-sand'}`}
-                  >
-                    {/* Tiny background glow pattern on active/hover */}
-                    <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-green-soft/10 rounded-full group-hover:scale-150 transition-all duration-500" />
-                    
-                    <h4 className={`font-sans font-bold text-sm tracking-widest uppercase mb-2 ${activePillar === index ? 'text-green-soft' : 'text-green-brand'}`}>
-                      {pillar.heading}
-                    </h4>
-                    <p className={`font-sans font-light text-xs leading-relaxed ${activePillar === index ? 'text-white/90' : 'text-brand-muted'}`}>
-                      {pillar.description}
-                    </p>
-                    
-                    <div className="mt-4 flex items-center justify-between text-[10px] font-sans uppercase tracking-widest text-green-brand border-t border-brand-line/20 pt-3 group-hover:text-green-dark">
-                      <span className={activePillar === index ? 'text-white/60' : 'text-brand-muted'}>
-                        {activePillar === index ? "Click to collapse" : "Find out more"}
-                      </span>
-                      <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-300 ${activePillar === index ? 'rotate-90 text-white' : 'text-green-brand group-hover:translate-x-1'}`} />
-                    </div>
-                  </button>
-                ))}
+                {content.projectInfo.clubhouse.pillars.map((pillar, index) => {
+                  const hasProjectBg = !!content.projectInfo.bgImage;
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => setActivePillar(activePillar === index ? null : index)}
+                      className={`text-left p-6 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer ${
+                        activePillar === index 
+                          ? 'bg-[#226F56] text-white border-[#226F56] shadow-lg' 
+                          : hasProjectBg 
+                            ? 'bg-white/10 backdrop-blur-[6px] border-white/15 text-white hover:bg-white/20' 
+                            : 'bg-brand-cream border-brand-line/50 hover:bg-brand-sand text-brand-ink'
+                      }`}
+                    >
+                      {/* Tiny background glow pattern on active/hover */}
+                      <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-green-soft/10 rounded-full group-hover:scale-150 transition-all duration-500" />
+                      
+                      <h4 className={`font-sans font-bold text-sm tracking-widest uppercase mb-2 ${
+                        activePillar === index 
+                          ? 'text-green-soft' 
+                          : hasProjectBg 
+                            ? 'text-white/95' 
+                            : 'text-green-brand'
+                      }`}>
+                        {pillar.heading}
+                      </h4>
+                      <p className={`font-sans font-light text-xs leading-relaxed ${
+                        activePillar === index 
+                          ? 'text-white/90' 
+                          : hasProjectBg 
+                            ? 'text-white/80' 
+                            : 'text-brand-muted'
+                      }`}>
+                        {pillar.description}
+                      </p>
+                      
+                      <div className={`mt-4 flex items-center justify-between text-[10px] font-sans uppercase tracking-widest border-t pt-3 ${
+                        hasProjectBg 
+                          ? 'text-white/70 border-white/10 group-hover:text-white' 
+                          : 'text-green-brand border-brand-line/20 group-hover:text-green-dark'
+                      }`}>
+                        <span className={activePillar === index ? 'text-white/60' : (hasProjectBg ? 'text-white/80' : 'text-brand-muted')}>
+                          {activePillar === index ? "Click to collapse" : "Find out more"}
+                        </span>
+                        <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                          activePillar === index 
+                            ? 'rotate-90 text-white' 
+                            : hasProjectBg 
+                              ? 'text-white/70 group-hover:translate-x-1' 
+                              : 'text-green-brand group-hover:translate-x-1'
+                        }`} />
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -1785,7 +1844,22 @@ export default function App() {
                               return clone;
                             });
                           }}
+                          className="w-full bg-slate-950 text-slate-100 border border-slate-850 outline-none px-3.5 py-2 text-xs focus:border-[#4D8F75] rounded mb-3"
+                        />
+                        
+                        <label className="block text-[11px] text-slate-400 uppercase tracking-widest mb-1.5">Section Background Image URL</label>
+                        <input 
+                          type="text" 
+                          value={content.projectInfo.bgImage || ""}
+                          onChange={(e) => {
+                            setContent(prev => {
+                              const clone = JSON.parse(JSON.stringify(prev));
+                              clone.projectInfo.bgImage = e.target.value;
+                              return clone;
+                            });
+                          }}
                           className="w-full bg-slate-950 text-slate-100 border border-slate-850 outline-none px-3.5 py-2 text-xs focus:border-[#4D8F75] rounded"
+                          placeholder="e.g. /assets/Background/Project_BG.png"
                         />
                       </div>
                     </div>

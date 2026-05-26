@@ -27,6 +27,7 @@ export interface RenderCategory {
 
 export interface ProjectInfo {
   title: string;
+  bgImage?: string;
   highlights: {
     title: string;
     items: string[];
