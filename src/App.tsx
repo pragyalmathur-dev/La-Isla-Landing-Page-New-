@@ -356,7 +356,7 @@ export default function App() {
             isSideMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          <div className="flex flex-col h-full pt-[120px] pb-12 pr-6 pl-24 md:pl-26 justify-between">
+          <div className="flex flex-col h-full pt-[120px] pb-12 pr-6 pl-12 justify-between">
             <div>
               {/* Site Eyebrow */}
               <p className="font-sans text-[10px] sm:text-[11px] text-[#8fa499] uppercase tracking-[3px] mb-12">
