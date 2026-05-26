@@ -511,14 +511,14 @@ export default function App() {
       {/* ==================== CORE BANNER / HERO SECTION ==================== */}
       <section 
         id="hero" 
-        className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 bg-[#8ba295] overflow-hidden"
+        className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 bg-[#0c1613] overflow-hidden"
       >
         {/* Dynamic Continuous Video Background */}
         {content.hero.videoSrc ? (
           <video 
             ref={videoRef}
             key={content.hero.videoSrc}
-            className="absolute inset-0 w-full h-full object-cover z-0 opacity-[0.55] scale-100 transition-all duration-300" 
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-[0.82] scale-100 transition-all duration-300" 
             autoPlay 
             muted 
             loop 
@@ -531,50 +531,41 @@ export default function App() {
           <img 
             src={content.hero.bgImg} 
             alt="Goa landscape background placeholder" 
-            className="absolute inset-0 w-full h-full object-cover z-0 opacity-40" 
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-70" 
           />
         )}
         
-        {/* Ambient Subtle Green Shade Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#8ba295]/25 via-[#8ba295]/10 to-[#8ba295]/45 z-10" />
+        {/* Ambient Rich Dark Overlay (Replaced pale white-sage wash with high-contrast elegant shadow gradient) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-[#0c1613]/85 z-10" />
 
         <div className="container mx-auto z-20 w-full relative pl-0 md:pl-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
             
-            {/* Hero details column exactly matching Image 1 layout style */}
-            <div className="lg:col-span-6 text-white text-left max-w-xl flex flex-col justify-center">
-              <span className="block font-sans text-[11px] uppercase tracking-[4.5px] text-[#ebe7df] mb-4 font-normal">
-                {content.hero.eyebrow}
-              </span>
-              
-              <h1 className="font-serif text-4xl sm:text-7xl md:text-[88px] font-normal leading-[1.05] tracking-tight mb-8 text-white">
-                {content.hero.title}
-              </h1>
+            {/* Hero details column with refined blurred backdrop wrapper for rich readability */}
+            <div className="lg:col-span-5 text-white text-left max-w-[440px] flex flex-col justify-center">
+              <div className="bg-black/25 backdrop-blur-[5px] border border-white/10 p-5 sm:p-6 rounded-[12px] shadow-xl text-left">
+                <span className="block font-sans text-[11px] uppercase tracking-[4.5px] text-[#ebe7df]/95 mb-3 font-normal">
+                  {content.hero.eyebrow}
+                </span>
+                
+                <h1 className="font-serif text-3xl sm:text-5xl md:text-[56px] font-normal leading-[1.1] tracking-tight mb-5 text-white">
+                  {content.hero.title}
+                </h1>
 
-              <div className="space-y-4">
-                <p className="font-serif italic text-lg sm:text-xl md:text-[25px] text-white/95 leading-normal">
-                  {content.hero.tag}
-                </p>
-                <p className="font-sans text-[11px] text-[#ebe7df] uppercase tracking-[4px] font-light">
-                  {content.hero.location}
-                </p>
+                <div className="space-y-3.5">
+                  <p className="font-serif italic text-base sm:text-lg md:text-[20px] text-white leading-normal">
+                    {content.hero.tag}
+                  </p>
+                  <p className="font-sans text-[10px] text-[#ebe7df]/90 uppercase tracking-[4px] font-light">
+                    {content.hero.location}
+                  </p>
+                </div>
               </div>
-
-              {/* Minimal video play controls toggle */}
-              {content.hero.videoSrc && (
-                <button 
-                  onClick={toggleVideoPlayback}
-                  className="mt-12 self-start inline-flex items-center gap-2 bg-black/15 hover:bg-black/30 border border-white/10 text-[9px] uppercase tracking-[2.5px] font-sans px-3.5 py-1.5 rounded-[3px] transition-all"
-                >
-                  {isHeroVideoPlaying ? <Pause className="w-3 h-3 text-white" /> : <Play className="w-3 h-3 text-white" />}
-                  <span>{isHeroVideoPlaying ? "Pause Video" : "Play Video"}</span>
-                </button>
-              )}
             </div>
 
-            {/* Premium Frosted glass Inquire form exactly matching Image 1 container look */}
-            <div className="lg:col-span-6 flex justify-center lg:justify-end" id="enquire-lead-form">
-              <div className="bg-[#8ca89a]/35 backdrop-blur-md border border-white/15 rounded-[12px] p-8 md:p-10 shadow-lg w-full max-w-[450px]">
+            {/* Premium glass Inquire form exactly matching Left box container style */}
+            <div className="lg:col-span-7 flex justify-center lg:justify-end" id="enquire-lead-form">
+              <div className="bg-black/25 backdrop-blur-[5px] border border-white/10 rounded-[12px] p-6 md:p-8 shadow-xl w-full max-w-[420px]">
                 
                 <AnimatePresence mode="wait">
                   {formSubmitted === "enquire" ? (
