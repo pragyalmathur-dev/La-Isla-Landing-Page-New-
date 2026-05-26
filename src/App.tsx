@@ -733,6 +733,9 @@ export default function App() {
               className="w-full h-full object-cover object-center select-none blur-[4px] scale-[1.03]"
               referrerPolicy="no-referrer"
             />
+            {/* Subtle semi-transparent dark-sage overlay for pristine text readability without needing a surrounding box */}
+            <div className="absolute inset-0 bg-[#0c2a20]/25 mix-blend-multiply z-10" />
+            <div className="absolute inset-0 bg-black/15 z-10" />
           </div>
         )}
 
@@ -741,26 +744,23 @@ export default function App() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] border border-green-brand/10 rounded-full border-dashed pointer-events-none" />
 
         <div className="container mx-auto max-w-3xl relative z-10 flex flex-col items-center">
-          {/* Glassmorphic card frame matching the lead form aesthetic */}
-          <div className="bg-[#8ca89a]/12 backdrop-blur-[6px] border border-white/25 rounded-[16px] p-8 md:p-14 shadow-lg w-full flex flex-col items-center">
-            <p className="font-sans text-[11px] uppercase tracking-[4px] text-green-brand mb-4">
-              {content.loliem.eyebrow}
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl italic font-normal text-brand-ink leading-tight mb-6">
-              {content.loliem.title}
-            </h2>
-            
-            <div className="w-16 h-0.5 bg-green-brand/40 my-5" />
+          <p className={`font-sans text-[11px] uppercase tracking-[4px] mb-4 ${content.loliem.bgImage ? 'text-[#ebe7df]/90 drop-shadow-sm' : 'text-green-brand'}`}>
+            {content.loliem.eyebrow}
+          </p>
+          <h2 className={`font-serif text-4xl md:text-6xl italic font-normal leading-tight mb-6 ${content.loliem.bgImage ? 'text-white drop-shadow-md' : 'text-brand-ink'}`}>
+            {content.loliem.title}
+          </h2>
+          
+          <div className={`w-16 h-0.5 my-6 ${content.loliem.bgImage ? 'bg-white/40' : 'bg-green-brand/40'}`} />
 
-            <div className="space-y-4 max-w-2xl text-brand-ink/90 font-sans text-base md:text-lg font-light leading-relaxed">
-              {content.loliem.paragraphs.map((p, index) => (
-                <p key={index}>{p}</p>
-              ))}
-            </div>
+          <div className={`space-y-4 max-w-2xl font-sans text-lg md:text-xl font-light leading-relaxed p-2 ${content.loliem.bgImage ? 'text-white/95 drop-shadow-sm' : 'text-brand-muted'}`}>
+            {content.loliem.paragraphs.map((p, index) => (
+              <p key={index}>{p}</p>
+            ))}
+          </div>
 
-            <div className="mt-10">
-              <Compass className="w-10 h-10 text-green-brand/70 animate-spin" style={{ animationDuration: '25s' }} />
-            </div>
+          <div className="mt-12">
+            <Compass className={`w-10 h-10 animate-spin ${content.loliem.bgImage ? 'text-white/80' : 'text-green-brand/70'}`} style={{ animationDuration: '25s' }} />
           </div>
         </div>
       </section>
