@@ -105,6 +105,7 @@ export default function App() {
     const handleScroll = () => {
       const heroEl = document.getElementById("hero");
       const aboutEl = document.getElementById("about");
+      const loliemEl = document.getElementById("loliem");
       const mapEl = document.getElementById("map");
       const projectEl = document.getElementById("project");
       const testimonialsEl = document.getElementById("testimonials");
@@ -115,13 +116,16 @@ export default function App() {
       if (heroEl && scrollPos >= heroEl.offsetTop && scrollPos < (aboutEl?.offsetTop || Infinity)) {
         setActiveSection("hero");
         setIsNavDark(true);
-      } else if (aboutEl && scrollPos >= aboutEl.offsetTop && scrollPos < (mapEl?.offsetTop || Infinity)) {
+      } else if (aboutEl && scrollPos >= aboutEl.offsetTop && scrollPos < (loliemEl?.offsetTop || Infinity)) {
         setActiveSection("about");
+        setIsNavDark(false);
+      } else if (loliemEl && scrollPos >= loliemEl.offsetTop && scrollPos < (mapEl?.offsetTop || Infinity)) {
+        setActiveSection("loliem");
         setIsNavDark(false);
       } else if (mapEl && scrollPos >= mapEl.offsetTop && scrollPos < (projectEl?.offsetTop || Infinity)) {
         setActiveSection("map");
         setIsNavDark(false);
-      } else if (projectEl && scrollPos >= projectEl.offsetTop && scrollPos < (testimonialsEl?.offsetTop || pressEl?.offsetTop || Infinity)) {
+      } else if (projectEl && scrollPos >= projectEl.offsetTop && scrollPos < (testimonialsEl?.offsetTop || Infinity)) {
         setActiveSection("project");
         setIsNavDark(false);
       } else if (testimonialsEl && scrollPos >= testimonialsEl.offsetTop && scrollPos < (pressEl?.offsetTop || Infinity)) {
@@ -221,10 +225,8 @@ export default function App() {
       }
       return clone;
     });
-  };
-
-  return (
-    <div className={`relative min-h-screen bg-brand-cream overflow-x-hidden selection:bg-green-brand selection:text-white ${isCustomizerOpen ? "lg:mr-[400px]" : ""} transition-all duration-300`}>
+  };  return (
+    <div className="relative min-h-screen bg-brand-cream overflow-x-hidden selection:bg-green-brand selection:text-white transition-all duration-300">
       
       {/* ==================== UPPER LOGO HEADER ==================== */}
       <header className={`fixed top-0 left-0 right-0 z-40 px-6 py-4 md:px-12 flex items-center justify-between transition-all duration-300 ${activeSection !== 'hero' ? 'bg-brand-cream/90 backdrop-blur-md shadow-sm border-b border-brand-line/30' : 'bg-transparent'}`}>
@@ -236,126 +238,158 @@ export default function App() {
           />
         </a>
 
-        <div className="flex items-center gap-4">
+        <div>
           <button 
             onClick={() => { setFormSource("enquire"); setIsLeadModalOpen(true); }}
-            className={`hidden md:inline-flex items-center gap-2 border px-6 py-2.5 text-xs font-medium tracking-[2.5px] uppercase transition-all duration-300 rounded ${activeSection === 'hero' ? 'border-white/60 text-white hover:bg-white hover:text-green-dark' : 'border-green-brand text-green-brand hover:bg-green-brand hover:text-white'}`}
+            className={`inline-flex items-center justify-center border px-5 py-2 text-xs font-normal tracking-[2.5px] uppercase transition-all duration-300 rounded-[3px] ${
+              activeSection === 'hero' 
+                ? 'border-white/60 text-white hover:bg-white/10' 
+                : 'border-[#154736]/40 text-[#154736] hover:bg-[#154736]/5'
+            }`}
           >
-            {content.header.ctaText}
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </button>
-
-          {/* Quick toggle for JSON customizer inside AI Studio */}
-          <button
-            onClick={() => setIsCustomizerOpen(!isCustomizerOpen)}
-            className="flex items-center gap-2 bg-green-brand text-white text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-green-dark shadow-md hover:shadow-lg transition-all duration-200"
-            id="aistudio-customizer-toggle"
-          >
-            <Settings className={`w-4 h-4 ${isCustomizerOpen ? 'rotate-90' : ''} transition-transform duration-500`} />
-            <span className="hidden sm:inline">Theme Customizer</span>
+            ENQUIRE
           </button>
         </div>
       </header>
 
       {/* ==================== SIDE NAVIGATION (RAIL & PANEL) ==================== */}
-      <nav className="fixed left-0 top-0 bottom-0 z-40 hidden md:block pointer-events-none" aria-label="Page Sections">
-        <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-8 pointer-events-auto z-10">
-          <button 
-            onClick={() => setIsSideMenuOpen(true)}
-            className="w-10 h-10 bg-brand-cream/80 hover:bg-brand-sage border border-brand-line/40 rounded-full flex flex-col items-center justify-center gap-1.5 shadow-md group transition-all"
-            aria-label="Open menu"
-          >
-            <span className="w-4 h-0.5 bg-brand-ink group-hover:scale-x-110 transition-transform"></span>
-            <span className="w-3 h-0.5 bg-brand-ink self-start ml-3 group-hover:w-4 transition-all"></span>
-            <span className="w-4 h-0.5 bg-brand-ink group-hover:scale-x-110 transition-transform"></span>
-          </button>
+      <div className="fixed left-0 top-0 bottom-0 z-50 flex pointer-events-none" aria-label="Page Sections">
+        
+        {/* Transparent Left Rail which contains trigger button and the 7 pagination dots */}
+        <div className="w-[100px] flex flex-col items-center justify-start pt-[120px] pointer-events-auto h-full pr-4">
+          
+          {/* Menu Toggle Trigger */}
+          {!isSideMenuOpen ? (
+            <button 
+              onClick={() => setIsSideMenuOpen(true)}
+              className="w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none bg-transparent group"
+              aria-label="Open menu"
+            >
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
+              <span className={`w-3.5 h-[1.5px] rounded-full self-start ml-2 transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
+            </button>
+          ) : (
+            <button 
+              onClick={() => setIsSideMenuOpen(false)}
+              className="w-10 h-10 flex items-center justify-center text-white/90 hover:text-white transition-all focus:outline-none"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6 stroke-[1.5]" />
+            </button>
+          )}
 
-          {/* Dot navigation highlighting the intersectional active section */}
-          <div className="flex flex-col gap-4 py-6 px-2.5 bg-brand-cream/90 backdrop-blur border border-brand-line/30 rounded-full shadow-lg">
+          {/* Dots column matching all 7 sections */}
+          <div className="flex flex-col gap-6 mt-[60px] items-center">
             {[
-              { id: "hero", label: "Hero" },
-              { id: "about", label: "About" },
-              { id: "map", label: "Map" },
-              { id: "project", label: "Project & BHKs" },
+              { id: "hero", label: "La Isla" },
+              { id: "about", label: "About Vianaar" },
+              { id: "loliem", label: "Loliem" },
+              { id: "map", label: "Our project on the map" },
+              { id: "project", label: "About the project" },
               { id: "testimonials", label: "Testimonials" },
-              { id: "press", label: "Press" }
-            ].map(item => (
-              <button
-                key={item.id}
-                onClick={() => scrollToAnchor(item.id)}
-                className="group relative flex items-center justify-center h-4 w-4"
-                title={item.label}
-              >
-                <span className={`block w-2 h-2 rounded-full transition-all duration-300 ${activeSection === item.id ? 'bg-green-brand scale-150' : 'bg-brand-ink/30 hover:bg-brand-ink group-hover:scale-125'}`} />
-                <span className="absolute left-6 scale-0 group-hover:scale-100 bg-brand-ink text-white font-sans text-[11px] uppercase tracking-widest px-2 py-1 rounded shadow-md pointer-events-none transition-all origin-left truncate max-w-[120px]">
-                  {item.label}
-                </span>
-              </button>
-            ))}
+              { id: "press", label: "Press Highlights" }
+            ].map((item, index) => {
+              const isActive = activeSection === item.id;
+              const isDarkTheme = isSideMenuOpen || isNavDark;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToAnchor(item.id)}
+                  className="group relative flex items-center justify-center p-1"
+                  title={item.label}
+                >
+                  <span 
+                    className={`block rounded-full transition-all duration-300 ${
+                      isActive 
+                        ? 'w-[7px] h-[7px] scale-125 ' + (isDarkTheme ? 'bg-white' : 'bg-[#154736]')
+                        : 'w-1 h-1 ' + (isDarkTheme ? 'bg-white/35 hover:bg-white/80' : 'bg-[#154736]/25 hover:bg-[#154736]/60')
+                    }`} 
+                  />
+                  <span className="absolute left-8 scale-0 group-hover:scale-100 bg-[#231F20] text-white font-sans text-[10px] uppercase tracking-widest px-2.5 py-1.5 rounded shadow-lg pointer-events-none transition-all origin-left truncate max-w-[150px] z-50">
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Backdrop filter overlay active on side drawer */}
+        {/* Sliding Side Navigation Panel in Pine Green (exactly as in Image 2) */}
+        <div 
+          className={`fixed left-0 top-0 bottom-0 w-full max-w-[460px] bg-[#154736] text-white flex flex-col pointer-events-auto shadow-2xl transition-transform duration-500 z-40 ease-out ${
+            isSideMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <div className="flex flex-col h-full pt-[120px] pb-12 pr-8 pl-24 md:pl-28 justify-between">
+            <div>
+              {/* Site Eyebrow */}
+              <p className="font-sans text-[10px] sm:text-[11px] text-[#8fa499] uppercase tracking-[3px] mb-12">
+                La Isla — Loliem, South Goa
+              </p>
+              
+              {/* Ordered Links List with Custom Numbers */}
+              <ol className="flex flex-col gap-6">
+                {[
+                  { num: "01", label: "La Isla", id: "hero" },
+                  { num: "02", label: "About Vianaar", id: "about" },
+                  { num: "03", label: "Loliem", id: "loliem" },
+                  { num: "04", label: "Our project on the map", id: "map" },
+                  { num: "05", label: "About the project", id: "project" },
+                  { num: "06", label: "Testimonials", id: "testimonials" },
+                  { num: "07", label: "Press Highlights", id: "press" }
+                ].map((navItem, index) => {
+                  const isActive = activeSection === navItem.id;
+                  return (
+                    <li key={index} className="group">
+                      <button 
+                        onClick={() => scrollToAnchor(navItem.id)}
+                        className="flex items-baseline gap-6 sm:gap-8 font-serif text-left group-hover:translate-x-1.5 transition-all text-white focus:outline-none"
+                      >
+                        <span className="font-sans text-[10px] sm:text-xs text-[#4D8F75] font-semibold w-6 shrink-0">
+                          {navItem.num}
+                        </span>
+                        <span className={`font-serif text-[24px] sm:text-[28px] font-normal leading-tight tracking-wide transition-colors ${
+                          isActive ? 'text-[#ebe7df]' : 'text-white/80 group-hover:text-white'
+                        }`}>
+                          {navItem.label}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+
+            {/* Side Navigation Footer */}
+            <div className="pt-8 border-t border-white/5 text-white/40">
+              <p className="font-sans text-[9px] uppercase tracking-widest mb-1">Vianaar Luxury Residences</p>
+              <p className="font-serif italic text-xs text-[#8fa499]">"A New Expression of Living"</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Backdrop shade overlay active on side drawer (NO BLUR as per instruction) */}
+      {isSideMenuOpen && (
         <div 
           onClick={() => setIsSideMenuOpen(false)}
-          className={`fixed inset-0 bg-brand-ink/40 backdrop-blur-sm transition-opacity duration-500 pointer-events-auto ${isSideMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+          className="fixed inset-0 bg-black/15 pointer-events-auto z-30 transition-opacity duration-300" 
         />
-
-        {/* Inside drawer navigation view */}
-        <div className={`fixed left-0 top-0 bottom-0 w-[350px] bg-green-dark p-12 flex flex-col justify-between pointer-events-auto shadow-2xl transition-transform duration-500 z-50 ${isSideMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-          <div>
-            <div className="flex items-center justify-between mb-12">
-              <img src={content.site.logo} alt={content.site.logoAlt} className="h-10 brightness-0 invert" />
-              <button 
-                onClick={() => setIsSideMenuOpen(false)}
-                className="p-1.5 border border-white/20 rounded-full text-white/70 hover:text-white hover:border-white transition-all"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <p className="font-sans text-[10px] text-white/50 uppercase tracking-[3px] mb-8">{content.hero.eyebrow}</p>
-            <ol className="flex flex-col gap-6">
-              {[
-                { num: "01", label: content.hero.title, id: "hero" },
-                { num: "02", label: content.about.title, id: "about" },
-                { num: "03", label: content.loliem.eyebrow, id: "hero" },
-                { num: "04", label: content.mapSection.title, id: "map" },
-                { num: "05", label: content.projectInfo.title, id: "project" },
-                { num: "06", label: "Client Testimonials", id: "testimonials" },
-                { num: "07", label: "Press Highlights", id: "press" }
-              ].map((navItem, index) => (
-                <li key={index} className="group">
-                  <button 
-                    onClick={() => scrollToAnchor(navItem.id)}
-                    className="flex items-baseline gap-6 font-serif text-2xl text-white/60 hover:text-white transition-all text-left group-hover:translate-x-2"
-                  >
-                    <span className="font-sans text-[10px] uppercase tracking-wider text-green-soft font-bold w-6">{navItem.num}</span>
-                    <span>{navItem.label}</span>
-                  </button>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div className="border-t border-white/10 pt-8 text-white/50">
-            <p className="font-sans text-[11px] tracking-wide mb-2">Vianaar Luxury Residences</p>
-            <p className="font-serif italic text-sm text-white/80">"A New Expression of Living"</p>
-          </div>
-        </div>
-      </nav>
+      )}
 
       {/* ==================== CORE BANNER / HERO SECTION ==================== */}
       <section 
         id="hero" 
-        className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 bg-green-dark overflow-hidden"
+        className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 bg-[#8ba295] overflow-hidden"
       >
-        {/* Dynamic Media Background (Fallback to image if video has issue or customizable) */}
+        {/* Dynamic Continuous Video Background */}
         {content.hero.videoSrc ? (
           <video 
             ref={videoRef}
             key={content.hero.videoSrc}
-            className="absolute inset-0 w-full h-full object-cover z-0 opacity-60 scale-105 transition-all duration-[20rem]" 
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-[0.55] scale-100 transition-all duration-300" 
             autoPlay 
             muted 
             loop 
@@ -368,59 +402,51 @@ export default function App() {
           <img 
             src={content.hero.bgImg} 
             alt="Goa landscape background placeholder" 
-            className="absolute inset-0 w-full h-full object-cover z-0 opacity-50" 
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-40" 
           />
         )}
         
-        {/* Shadow Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-green-dark/40 via-green-dark/20 to-green-dark/70 z-10" />
+        {/* Ambient Subtle Green Shade Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#8ba295]/25 via-[#8ba295]/10 to-[#8ba295]/45 z-10" />
 
-        <div className="container mx-auto z-20 w-full">
+        <div className="container mx-auto z-20 w-full relative pl-0 md:pl-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
             
-            {/* Hero details column */}
-            <div className="lg:col-span-7 text-white text-left max-w-2xl">
-              <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-white/90 text-xs uppercase tracking-[3.5px] font-medium mb-6 animate-pulse">
+            {/* Hero details column exactly matching Image 1 layout style */}
+            <div className="lg:col-span-6 text-white text-left max-w-xl flex flex-col justify-center">
+              <span className="block font-sans text-[11px] uppercase tracking-[4.5px] text-[#ebe7df] mb-4 font-normal">
                 {content.hero.eyebrow}
               </span>
-              <h1 className="font-serif text-5xl sm:text-6xl md:text-8xl font-normal leading-[1.05] tracking-tight mb-4 drop-shadow-md text-white">
+              
+              <h1 className="font-serif text-6xl sm:text-7xl md:text-[88px] font-normal leading-[1.05] tracking-tight mb-8 text-white">
                 {content.hero.title}
               </h1>
-              
-              <div className="h-0.5 bg-green-soft w-28 my-6" />
 
-              <p className="font-serif italic text-xl md:text-2xl text-white/95 mb-1 max-w-xl">
-                {content.hero.tag}
-              </p>
-              <div className="flex items-center gap-2 text-white/80 uppercase font-sans text-xs tracking-[4px] font-medium">
-                <MapPin className="w-4 h-4 text-green-soft" />
-                <span>{content.hero.location}</span>
+              <div className="space-y-4">
+                <p className="font-serif italic text-xl md:text-[25px] text-white/95 leading-normal">
+                  {content.hero.tag}
+                </p>
+                <p className="font-sans text-[11px] text-[#ebe7df] uppercase tracking-[4px] font-light">
+                  {content.hero.location}
+                </p>
               </div>
 
-              {/* Video control buttons */}
+              {/* Minimal video play controls toggle */}
               {content.hero.videoSrc && (
                 <button 
                   onClick={toggleVideoPlayback}
-                  className="mt-8 inline-flex items-center gap-2 bg-black/30 hover:bg-black/50 border border-white/20 text-white text-xs uppercase tracking-widest font-sans px-4 py-2 rounded-full transition-all backdrop-blur-md"
+                  className="mt-12 self-start inline-flex items-center gap-2 bg-black/15 hover:bg-black/30 border border-white/10 text-[9px] uppercase tracking-[2.5px] font-sans px-3.5 py-1.5 rounded-[3px] transition-all"
                 >
-                  {isHeroVideoPlaying ? <Pause className="w-3.5 h-3.5 text-white" /> : <Play className="w-3.5 h-3.5 text-white" />}
-                  <span>{isHeroVideoPlaying ? "Pause ambiance video" : "Play ambiance video"}</span>
+                  {isHeroVideoPlaying ? <Pause className="w-3 h-3 text-white" /> : <Play className="w-3 h-3 text-white" />}
+                  <span>{isHeroVideoPlaying ? "Pause Video" : "Play Video"}</span>
                 </button>
               )}
             </div>
 
-            {/* Inquire Frosted Glass Form component */}
-            <div className="lg:col-span-5" id="enquire-lead-form">
-              <div className="bg-white/10 backdrop-blur-xl border border-white/25 rounded-xl p-8 shadow-2xl relative overflow-hidden">
+            {/* Premium Frosted glass Inquire form exactly matching Image 1 container look */}
+            <div className="lg:col-span-6 flex justify-center lg:justify-end" id="enquire-lead-form">
+              <div className="bg-[#8ca89a]/35 backdrop-blur-md border border-white/15 rounded-[12px] p-8 md:p-10 shadow-lg w-full max-w-[450px]">
                 
-                {/* Decorative corner glow */}
-                <div className="absolute -top-10 -right-10 w-24 h-24 bg-green-soft/30 rounded-full blur-2xl" />
-
-                <h3 className="font-sans font-light text-xl text-white tracking-widest text-center uppercase mb-6 flex items-center justify-center gap-2">
-                  <Sparkles className="w-5 h-5 text-green-soft" />
-                  {content.hero.form.title}
-                </h3>
-
                 <AnimatePresence mode="wait">
                   {formSubmitted === "enquire" ? (
                     <motion.div 
@@ -439,83 +465,87 @@ export default function App() {
                     </motion.div>
                   ) : (
                     <form onSubmit={(e) => handleFormSubmit(e, "enquire")} className="space-y-4">
+                      
                       <div>
-                        <label className="block text-[10px] uppercase tracking-wider text-white/80 mb-1">Your Full Name</label>
+                        <label className="block text-[10px] uppercase tracking-[2px] font-sans text-white/90 mb-1.5 font-normal">Name</label>
                         <input
                           type="text"
                           required
                           value={leadFormData.name}
                           onChange={(e) => setLeadFormData({ ...leadFormData, name: e.target.value })}
-                          className="w-full bg-white/15 border border-white/20 hover:border-white/40 focus:border-white focus:bg-white focus:text-brand-ink outline-none px-4 py-2.5 text-sm rounded text-white transition-all"
-                          placeholder="Anjali Sen"
+                          className="w-full bg-[#f2f5f3]/95 text-[#231F20] outline-none px-4 py-3 text-sm rounded-[4px] border border-white/10 focus:bg-white transition-all placeholder:text-[#231F20]/40"
+                          placeholder="Your Name"
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[10px] uppercase tracking-wider text-white/80 mb-1">Email</label>
+                          <label className="block text-[10px] uppercase tracking-[2px] font-sans text-white/90 mb-1.5 font-normal">Email</label>
                           <input
                             type="email"
                             required
                             value={leadFormData.email}
                             onChange={(e) => setLeadFormData({ ...leadFormData, email: e.target.value })}
-                            className="w-full bg-white/15 border border-white/20 hover:border-white/40 focus:border-white focus:bg-white focus:text-brand-ink outline-none px-4 py-2.5 text-sm rounded text-white transition-all"
-                            placeholder="anjali@domain.com"
+                            className="w-full bg-[#f2f5f3]/95 text-[#231F20] outline-none px-4 py-3 text-sm rounded-[4px] border border-white/10 focus:bg-white transition-all placeholder:text-[#231F20]/40"
+                            placeholder="Email Address"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] uppercase tracking-wider text-white/80 mb-1">Phone</label>
+                          <label className="block text-[10px] uppercase tracking-[2px] font-sans text-white/90 mb-1.5 font-normal">Phone</label>
                           <input
                             type="tel"
                             required
                             value={leadFormData.phone}
                             onChange={(e) => setLeadFormData({ ...leadFormData, phone: e.target.value })}
-                            className="w-full bg-white/15 border border-white/20 hover:border-white/40 focus:border-white focus:bg-white focus:text-brand-ink outline-none px-4 py-2.5 text-sm rounded text-white transition-all"
-                            placeholder="+91 9876543210"
+                            className="w-full bg-[#f2f5f3]/95 text-[#231F20] outline-none px-4 py-3 text-sm rounded-[4px] border border-white/10 focus:bg-white transition-all placeholder:text-[#231F20]/40"
+                            placeholder="Phone Number"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[10px] uppercase tracking-wider text-white/80 mb-1">Your Location</label>
+                          <label className="block text-[10px] uppercase tracking-[2px] font-sans text-white/90 mb-1.5 font-normal">Location</label>
                           <input
                             type="text"
                             value={leadFormData.location}
                             onChange={(e) => setLeadFormData({ ...leadFormData, location: e.target.value })}
-                            className="w-full bg-white/15 border border-white/20 hover:border-white/40 focus:border-white focus:bg-white focus:text-brand-ink outline-none px-4 py-2.5 text-sm rounded text-white transition-all"
-                            placeholder="Delhi NCR"
+                            className="w-full bg-[#f2f5f3]/95 text-[#231F20] outline-none px-4 py-3 text-sm rounded-[4px] border border-white/10 focus:bg-white transition-all placeholder:text-[#231F20]/40"
+                            placeholder="Your City"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] uppercase tracking-wider text-white/80 mb-1">Preferred Villa</label>
-                          <select
-                            value={leadFormData.villa}
-                            onChange={(e) => setLeadFormData({ ...leadFormData, villa: e.target.value })}
-                            className="w-full bg-slate-800/80 md:bg-white/15 border border-white/20 hover:border-white/40 focus:border-white focus:bg-white focus:text-brand-ink outline-none px-4 py-2.5 text-sm rounded text-white transition-all appearance-none cursor-pointer"
-                          >
-                            <option value="2 BHK">2 BHK Villa</option>
-                            <option value="3 BHK">3 BHK Villa</option>
-                            <option value="4 BHK">4 BHK Villa</option>
-                            <option value="Needs guidance">Guidance Required</option>
-                          </select>
+                          <label className="block text-[10px] uppercase tracking-[2px] font-sans text-white/90 mb-1.5 font-normal">Preferred villa</label>
+                          <div className="relative">
+                            <select
+                              value={leadFormData.villa}
+                              onChange={(e) => setLeadFormData({ ...leadFormData, villa: e.target.value })}
+                              className="w-full bg-[#f2f5f3]/95 text-[#231F20] outline-none pr-8 pl-4 py-3 text-sm rounded-[4px] border border-white/10 focus:bg-white transition-all appearance-none cursor-pointer"
+                            >
+                              <option value="2 BHK">2 BHK Villa</option>
+                              <option value="3 BHK">3 BHK Villa</option>
+                              <option value="4 BHK">4 BHK Villa</option>
+                            </select>
+                            {/* SVG Arrow icon */}
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#231F20]">
+                              <svg className="w-4 h-4 fill-none stroke-current stroke-1.5" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                              </svg>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
                       <button
                         type="submit"
-                        className="w-full mt-2 bg-green-brand hover:bg-green-brand/90 active:translate-y-px text-white text-xs uppercase tracking-[3px] py-4 rounded font-medium shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                        className="w-full mt-4 bg-[#135036] hover:bg-[#0d3c26] text-white text-xs uppercase tracking-[2.5px] py-4 rounded-[4px] font-semibold transition-all flex items-center justify-center shadow"
                       >
-                        <span>{content.hero.form.buttonText}</span>
-                        <ArrowRight className="w-4 h-4" />
+                        SUBMIT →
                       </button>
                     </form>
                   )}
                 </AnimatePresence>
                 
-                <p className="text-[10px] text-white/50 text-center mt-4 uppercase tracking-widest">
-                  Secure Site · Direct Developer Desk
-                </p>
               </div>
             </div>
 
@@ -563,7 +593,7 @@ export default function App() {
       </section>
 
       {/* ==================== LOLIEM PROMO BLOCK ==================== */}
-      <section className="py-28 px-6 md:px-12 bg-brand-sage text-center text-brand-ink relative overflow-hidden">
+      <section id="loliem" className="py-28 px-6 md:px-12 bg-brand-sage text-center text-brand-ink relative overflow-hidden">
         
         {/* Subtle decorative vector backdrop */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] border border-green-brand/5 rounded-full pointer-events-none" />
@@ -1701,18 +1731,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Small floating hint when Customizer is collapsed to inform user they can edit */}
-      {!isCustomizerOpen && (
-        <button
-          onClick={() => setIsCustomizerOpen(true)}
-          className="fixed bottom-6 right-6 z-40 bg-[#226F56] text-white p-3.5 rounded-full shadow-2xl hover:bg-green-dark hover:scale-110 active:scale-95 transition-all flex items-center gap-2 group animate-bounce"
-        >
-          <Sparkles className="w-5 h-5" />
-          <span className="font-sans text-xs font-semibold uppercase tracking-wider max-w-0 overflow-hidden group-hover:max-w-[150px] transition-all duration-300 whitespace-nowrap">
-            Content Editor Mode
-          </span>
-        </button>
-      )}
+      {/* Customizer button removed */}
 
     </div>
   );
