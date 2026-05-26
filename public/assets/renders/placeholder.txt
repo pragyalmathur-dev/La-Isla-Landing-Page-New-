@@ -1,5 +1,20 @@
-Place your 3D Renders for 2 BHK, 3 BHK, and 4 BHK villas in this folder.
-You can reference them in content.json with:
-/assets/renders/2-bhk-front.jpg
-/assets/renders/3-bhk-front.jpg
-etc.
+Place your 3D Renders inside this folder. The exact allowed/configured file names are:
+
+2 BHK Renders:
+- 2BHK_FrontView.jpg
+- 2BHK_VerandahView.jpg
+- 2BHK_PoolSideView.jpg
+
+3 BHK Renders:
+- 3BHK_FrontView.jpg
+- 3BHK_VerandahView.jpg
+- 3BHK_BackView.jpg
+
+4 BHK Renders:
+- 4BHK_FrontView.jpg
+- 4BHK_GF_Verandah.jpg
+- 4BHK_FF_Verandah.jpg
+- 4BHK_BackView.jpg
+
+You can reference them in /src/data/content.json with path formatting like:
+"/assets/renders/2BHK_FrontView.jpg"
