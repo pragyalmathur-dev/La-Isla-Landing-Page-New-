@@ -904,61 +904,34 @@ export default function App() {
                 </p>
               </div>
 
-              {/* 4 Pillars Interactive Layout list */}
+              {/* 4 Pillars Layout list */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {content.projectInfo.clubhouse.pillars.map((pillar, index) => {
                   const hasProjectBg = !!content.projectInfo.bgImage;
                   return (
-                    <button
+                    <div
                       key={index}
-                      onClick={() => setActivePillar(activePillar === index ? null : index)}
-                      className={`text-left p-6 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer ${
-                        activePillar === index 
-                          ? 'bg-[#226F56] text-white border-[#226F56] shadow-lg' 
-                          : hasProjectBg 
-                            ? 'bg-white/10 backdrop-blur-[6px] border-white/15 text-white hover:bg-white/20' 
-                            : 'bg-brand-cream border-brand-line/50 hover:bg-brand-sand text-brand-ink'
+                      className={`p-6 rounded-xl border transition-all duration-300 relative overflow-hidden ${
+                        hasProjectBg 
+                          ? 'bg-white/10 backdrop-blur-[6px] border-white/15 text-white' 
+                          : 'bg-brand-cream border-brand-line/50 text-brand-ink'
                       }`}
                     >
-                      {/* Tiny background glow pattern on active/hover */}
-                      <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-green-soft/10 rounded-full group-hover:scale-150 transition-all duration-500" />
-                      
                       <h4 className={`font-sans font-bold text-sm tracking-widest uppercase mb-2 ${
-                        activePillar === index 
-                          ? 'text-green-soft' 
-                          : hasProjectBg 
-                            ? 'text-white/95' 
-                            : 'text-green-brand'
+                        hasProjectBg 
+                          ? 'text-white/95' 
+                          : 'text-green-brand'
                       }`}>
                         {pillar.heading}
                       </h4>
                       <p className={`font-sans font-light text-xs leading-relaxed ${
-                        activePillar === index 
-                          ? 'text-white/90' 
-                          : hasProjectBg 
-                            ? 'text-white/80' 
-                            : 'text-brand-muted'
+                        hasProjectBg 
+                          ? 'text-white/85' 
+                          : 'text-brand-muted'
                       }`}>
                         {pillar.description}
                       </p>
-                      
-                      <div className={`mt-4 flex items-center justify-between text-[10px] font-sans uppercase tracking-widest border-t pt-3 ${
-                        hasProjectBg 
-                          ? 'text-white/70 border-white/10 group-hover:text-white' 
-                          : 'text-green-brand border-brand-line/20 group-hover:text-green-dark'
-                      }`}>
-                        <span className={activePillar === index ? 'text-white/60' : (hasProjectBg ? 'text-white/80' : 'text-brand-muted')}>
-                          {activePillar === index ? "Click to collapse" : "Find out more"}
-                        </span>
-                        <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                          activePillar === index 
-                            ? 'rotate-90 text-white' 
-                            : hasProjectBg 
-                              ? 'text-white/70 group-hover:translate-x-1' 
-                              : 'text-green-brand group-hover:translate-x-1'
-                        }`} />
-                      </div>
-                    </button>
+                    </div>
                   );
                 })}
               </div>
