@@ -39,7 +39,7 @@ const getFallbackImage = (path: string): string => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
     <rect width="100%" height="100%" fill="#f4f6f5"/>
     <rect x="20" y="20" width="560" height="410" rx="8" fill="none" stroke="#d1ded8" stroke-width="1.5" stroke-dasharray="8 6"/>
-    <g transform="translate(300, 200)" text-anchor="middle">
+    <g transform="translate(300, 200)" textAnchor="middle">
       {/* Elegantly styled simple line-art house blueprint */}
       <path d="M-30,20 L-30,-15 L0,-40 L30,-15 L30,20 Z" fill="none" stroke="#154736" stroke-width="2" stroke-linejoin="round"/>
       <path d="M-10,20 L-10,3 L10,3 L10,20" fill="none" stroke="#154736" stroke-width="2"/>
@@ -57,74 +57,50 @@ const getFallbackImage = (path: string): string => {
 };
 
 const renderPressLogo = (publicationName: string) => {
+  let src = "";
   switch (publicationName) {
     case "Esquire India":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[130px] text-current select-none" fill="currentColor">
-          <text x="50%" y="36" fontFamily="'Playfair Display', 'Didot', 'Georgia', serif" fontSize="23" fontWeight="900" letterSpacing="0.5" textAnchor="middle">Esquire</text>
-          <text x="50%" y="49" fontFamily="'Inter', sans-serif" fontSize="6" fontWeight="700" letterSpacing="4.5" textAnchor="middle" fill="#8fa499">INDIA</text>
-        </svg>
-      );
+      src = "data:image/png;base64,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";
+      break;
     case "The Economic Times":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[140px] text-current select-none" fill="currentColor">
-          <text x="50%" y="32" fontFamily="'Times New Roman', serif" fontWeight="800" fontSize="16" fontStyle="italic" letterSpacing="-0.5" text-anchor="middle">The Economic Times</text>
-          <rect x="25" y="40" width="150" height="1" fill="currentColor" opacity="0.8"/>
-        </svg>
-      );
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/The_Economic_Times_logo.svg/3840px-The_Economic_Times_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail";
+      break;
     case "Times Entertainment":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[145px] text-current select-none" fill="currentColor">
-          <text x="50%" y="28" fontFamily="'Times New Roman', serif" fontSize="20" fontWeight="bold" letterSpacing="0.5" textAnchor="middle">TIMES</text>
-          <text x="50%" y="46" fontFamily="'Inter', sans-serif" fontSize="7.5" fontWeight="600" letterSpacing="3" textAnchor="middle" fill="#708a7e">ENTERTAINMENT</text>
-        </svg>
-      );
+      src = "https://kitesseniorcare.com/wp-content/uploads/2025/11/Logo-1.png";
+      break;
     case "Bazaar":
-      return (
-        <svg viewBox="0 0 200 60" className="h-[25px] w-auto max-w-[110px] text-current select-none animate-pulse-subtle" fill="currentColor">
-          <text x="50%" y="40" fontFamily="'Didot', 'Bodoni MT', 'Playfair Display', serif" fontSize="29" fontWeight="bold" letterSpacing="2.5" textAnchor="middle">BAZAAR</text>
-        </svg>
-      );
+      src = "https://upload.wikimedia.org/wikipedia/commons/f/f4/Harper%27s_Bazaar_Logo.jpg";
+      break;
     case "Financial Express":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[145px] text-current select-none" fill="currentColor">
-          <text x="50%" y="28" fontFamily="'Inter', sans-serif" fontSize="14" fontWeight="800" letterSpacing="0.5" textAnchor="middle">FINANCIAL</text>
-          <text x="50%" y="46" fontFamily="'Playfair Display', serif" fontSize="13.5" fontWeight="bold" fontStyle="italic" textAnchor="middle">Express</text>
-        </svg>
-      );
+      src = "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/The_Financial_Express_%28India%29_Logo.svg/3840px-The_Financial_Express_%28India%29_Logo.svg.png";
+      break;
     case "Outlook Luxe":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[130px] text-current select-none" fill="currentColor">
-          <text x="50%" y="28" fontFamily="'Inter', sans-serif" fontSize="17" fontWeight="900" letterSpacing="1" textAnchor="middle">Outlook</text>
-          <text x="50%" y="47" fontFamily="'Playfair Display', serif" fontSize="10.5" fontStyle="italic" fontWeight="bold" letterSpacing="2" textAnchor="middle" fill="#4D8F75">LUXE</text>
-        </svg>
-      );
+      src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDN_gFG4xBDvgeIGReQW5awDb4873Fgfir6A&s";
+      break;
     case "Architectural Digest":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[140px] text-current select-none" fill="currentColor">
-          <text x="50%" y="26" fontFamily="'Times New Roman', serif" fontSize="14" fontWeight="bold" letterSpacing="3.5" textAnchor="middle">ARCHITECTURAL</text>
-          <text x="50%" y="46" fontFamily="'Times New Roman', serif" fontSize="14" fontWeight="bold" letterSpacing="3.5" textAnchor="middle">DIGEST</text>
-        </svg>
-      );
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Architectural_Digest_icon.svg/250px-Architectural_Digest_icon.svg.png";
+      break;
     case "Business Standard":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[140px] text-current select-none" fill="currentColor">
-          <rect x="20" y="10" width="160" height="1.5" fill="currentColor"></rect>
-          <text x="50%" y="32" fontFamily="'Times New Roman', serif" fontSize="16.5" fontWeight="bold" letterSpacing="0.5" textAnchor="middle">Business Standard</text>
-          <rect x="20" y="40" width="160" height="1.5" fill="currentColor"></rect>
-        </svg>
-      );
+      src = "https://bsmedia.business-standard.com/_media/bs/img/author/thumb/bs-web-team-2105.png";
+      break;
     case "The Daily Guardian":
-      return (
-        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[150px] text-current select-none" fill="currentColor">
-          <text x="50%" y="28" fontFamily="'Times New Roman', serif" fontSize="14" fontWeight="bold" letterSpacing="0.5" textAnchor="middle">The Daily Guardian</text>
-          <line x1="20" y1="36" x2="180" y2="36" stroke="currentColor" strokeWidth="1.2"></line>
-          <text x="50%" y="48" fontFamily="'Inter', sans-serif" fontSize="7" fontWeight="bold" letterSpacing="4" textAnchor="middle" fill="#708a7e">ESTD 2020</text>
-        </svg>
-      );
-    default:
-      return <span className="font-serif font-bold text-xs tracking-widest">{publicationName}</span>;
+      src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKV_pNd1bTUK09fB2B15pRy--y-XHHBSMJwg&s";
+      break;
   }
+
+  if (src) {
+    return (
+      <img
+        id={`press-logo-${publicationName.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
+        src={src}
+        alt={`${publicationName} Logo`}
+        referrerPolicy="no-referrer"
+        className="max-h-[38px] sm:max-h-[44px] max-w-[170px] w-auto h-auto object-contain select-none opacity-85 group-hover:opacity-100 transition-opacity duration-300 mix-blend-multiply"
+      />
+    );
+  }
+
+  return <span className="font-serif font-bold text-xs tracking-widest">{publicationName}</span>;
 };
 
 export default function App() {
