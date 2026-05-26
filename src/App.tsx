@@ -33,46 +33,51 @@ import { LandingContent, TestimonialItem, PressItem } from "./types";
 
 const getFallbackImage = (path: string): string => {
   if (!path) return "";
-  if (path.includes("2BHK_FrontView")) {
-    return "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("2BHK_VerandahView")) {
-    return "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("2BHK_PoolSideView")) {
-    return "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("3BHK_FrontView")) {
-    return "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("3BHK_VerandahView")) {
-    return "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("3BHK_BackView")) {
-    return "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("4BHK_FrontView")) {
-    return "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("4BHK_GF_Verandah")) {
-    return "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("4BHK_FF_Verandah")) {
-    return "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800";
-  }
-  if (path.includes("4BHK_BackView")) {
-    return "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800";
-  }
-  return path;
+  const filename = path.split("/").pop() || path;
+  
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+    <rect width="100%" height="100%" fill="#f4f6f5"/>
+    <rect x="20" y="20" width="560" height="410" rx="8" fill="none" stroke="#d1ded8" stroke-width="1.5" stroke-dasharray="8 6"/>
+    <g transform="translate(300, 200)" text-anchor="middle">
+      {/* Elegantly styled simple line-art house blueprint */}
+      <path d="M-30,20 L-30,-15 L0,-40 L30,-15 L30,20 Z" fill="none" stroke="#154736" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-10,20 L-10,3 L10,3 L10,20" fill="none" stroke="#154736" stroke-width="2"/>
+      <circle cx="0" cy="-18" r="4.5" fill="none" stroke="#154736" stroke-width="1.5"/>
+      <line x1="-45" y1="20" x2="45" y2="20" stroke="#154736" stroke-width="2"/>
+      
+      {/* Text labels styled with luxury palette */}
+      <text y="65" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="600" fill="#154736" letter-spacing="1.5">${filename}</text>
+      <text y="90" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#708a7e" letter-spacing="0.5">Empty Render Placeholder</text>
+      <text y="115" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#8fa499" letter-spacing="0.2">Place your 3D render at /public/assets/renders/${filename}</text>
+    </g>
+  </svg>`;
+  
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg.trim())}`;
 };
 
 export default function App() {
   // --- Content State initialized with local storage persistence ---
   const [content, setContent] = useState<LandingContent>(() => {
     const saved = localStorage.getItem("la_isla_custom_content");
+    const lastDefault = localStorage.getItem("la_isla_last_default_content");
+    const currentDefaultStr = JSON.stringify(defaultContent);
+
+    // If defaultContent has changed in the codebase, override the saved local storage state 
+    // so developer file edits are immediately visible in the live preview.
+    if (lastDefault !== currentDefaultStr) {
+      localStorage.setItem("la_isla_last_default_content", currentDefaultStr);
+      localStorage.setItem("la_isla_custom_content", currentDefaultStr);
+      return defaultContent as LandingContent;
+    }
+
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Force sync renders to always match content.json so render edits aren't cached
+        if (parsed.projectInfo) {
+          parsed.projectInfo.renders = defaultContent.projectInfo.renders;
+        }
+        return parsed as LandingContent;
       } catch (e) {
         console.error("Failed to parse saved content, falling back to defaults", e);
       }
@@ -297,17 +302,15 @@ export default function App() {
           {!isSideMenuOpen ? (
             <button 
               onClick={() => setIsSideMenuOpen(true)}
-              className="w-10 h-10 flex flex-col justify-center items-center gap-[5px] focus:outline-none bg-transparent group"
+              className="w-10 h-10 flex items-center justify-center focus:outline-none bg-transparent group cursor-pointer hover:scale-105 transition-transform duration-200"
               aria-label="Open menu"
             >
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
+              <Menu className={`w-5 h-5 stroke-[1.5] transition-all duration-300 ${isNavDark ? 'text-white' : 'text-[#154736]'}`} />
             </button>
           ) : (
             <button 
               onClick={() => setIsSideMenuOpen(false)}
-              className="w-10 h-10 flex items-center justify-center text-white/90 hover:text-white transition-all focus:outline-none"
+              className="w-10 h-10 flex items-center justify-center text-white/90 hover:text-white transition-all focus:outline-none cursor-pointer"
               aria-label="Close menu"
             >
               <X className="w-6 h-6 stroke-[1.5]" />
