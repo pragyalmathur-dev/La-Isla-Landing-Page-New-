@@ -705,15 +705,15 @@ export default function App() {
             <div className="grid grid-cols-3 gap-6 md:gap-16 mt-16 pt-12 border-t border-brand-line/40 w-full max-w-2xl">
               <div>
                 <span className="block font-serif text-4xl md:text-5xl text-green-brand mb-1">15+</span>
-                <span className="block font-sans text-[11px] uppercase tracking-wider text-brand-muted">Years Active</span>
+                <span className="block font-sans text-[11px] uppercase tracking-wider text-brand-muted">Years</span>
               </div>
               <div>
                 <span className="block font-serif text-4xl md:text-5xl text-green-brand mb-1">100+</span>
-                <span className="block font-sans text-[11px] uppercase tracking-wider text-brand-muted">Bespoke Projects</span>
+                <span className="block font-sans text-[11px] uppercase tracking-wider text-brand-muted">Projects</span>
               </div>
               <div>
-                <span className="block font-serif text-4xl md:text-5xl text-green-brand mb-1">1,200+</span>
-                <span className="block font-sans text-[11px] uppercase tracking-wider text-brand-muted">Happy Homeowners</span>
+                <span className="block font-serif text-4xl md:text-5xl text-green-brand mb-1">1200+</span>
+                <span className="block font-sans text-[11px] uppercase tracking-wider text-brand-muted">Homes</span>
               </div>
             </div>
 
@@ -724,6 +724,21 @@ export default function App() {
       {/* ==================== LOLIEM PROMO BLOCK ==================== */}
       <section id="loliem" className="py-28 px-6 md:px-12 bg-brand-sage text-center text-brand-ink relative overflow-hidden">
         
+        {/* Optional background image with a luxurious overlay */}
+        {content.loliem.bgImage && (
+          <div className="absolute inset-0 z-0 animate-fade-in">
+            <img 
+              src={content.loliem.bgImage} 
+              alt="Loliem background scene" 
+              className="w-full h-full object-cover object-center select-none"
+              referrerPolicy="no-referrer"
+            />
+            {/* Elegant multi-layered gradient overlay to match the brand aesthetic & guarantee flawless legibility */}
+            <div className="absolute inset-0 bg-[#e7eee8]/90 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#e3eae4]/95 via-[#e3eae4]/85 to-[#e3eae4]/95" />
+          </div>
+        )}
+
         {/* Subtle decorative vector backdrop */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] border border-green-brand/5 rounded-full pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] border border-green-brand/10 rounded-full border-dashed pointer-events-none" />
@@ -1652,7 +1667,15 @@ export default function App() {
                             const split = e.target.value.split("\n\n");
                             setContent(prev => ({ ...prev, loliem: { ...prev.loliem, paragraphs: split } }));
                           }}
-                          className="w-full bg-slate-950 text-slate-100 border border-slate-850 outline-none px-3.5 py-2 text-xs focus:border-[#4D8F75] rounded font-mono"
+                          className="w-full bg-slate-950 text-slate-100 border border-slate-850 outline-none px-3.5 py-2 text-xs focus:border-[#4D8F75] rounded font-mono mb-3"
+                        />
+                        <label className="block text-[11px] text-slate-400 uppercase tracking-widest mb-1.5">Background Image URL</label>
+                        <input 
+                          type="text" 
+                          value={content.loliem.bgImage || ""}
+                          onChange={(e) => updateContentField("loliem", "bgImage", e.target.value)}
+                          className="w-full bg-slate-950 text-slate-100 border border-slate-850 outline-none px-3.5 py-2 text-xs focus:border-[#4D8F75] rounded"
+                          placeholder="e.g. https://images.unsplash.com/..."
                         />
                       </div>
                     </div>

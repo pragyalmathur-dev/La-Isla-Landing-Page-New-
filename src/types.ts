@@ -110,6 +110,7 @@ export interface LandingContent {
     eyebrow: string;
     title: string;
     paragraphs: string[];
+    bgImage?: string;
   };
   mapSection: MapSection;
   projectInfo: ProjectInfo;
