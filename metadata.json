@@ -1,0 +1,6 @@
+{
+  "name": "La Isla",
+  "description": "JSON-driven luxury landing page and content customizer for La Isla, South Goa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

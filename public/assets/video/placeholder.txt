@@ -1,0 +1,2 @@
+Place your header video files (e.g., 'header-south-goa.mp4') and matching poster images in this folder.
+Accessible at: /assets/video/header-south-goa.mp4

@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Mulish:wght@300;400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cardo", Georgia, serif;
+  --font-sans: "Mulish", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --color-green-brand: #226F56;
+  --color-green-dark: #154736;
+  --color-green-soft: #4D8F75;
+  --color-brand-ink: #231F20;
+  --color-brand-muted: #6E7269;
+  --color-brand-line: #D9DDD3;
+  --color-brand-sage: #E6EBE3;
+  --color-brand-sand: #F4EFE7;
+  --color-brand-cream: #FAF8F4;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-brand-cream);
+  color: var(--color-brand-ink);
+}
+
+/* Custom scrollbar for brand aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #E6EBE3;
+}
+::-webkit-scrollbar-thumb {
+  background: #226F56;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #154736;
+}

@@ -1,0 +1,221 @@
+{
+  "site": {
+    "logo": "https://www.vianaar.com/images-vianaar/logo.svg",
+    "logoAlt": "Vianaar Logo"
+  },
+  "header": {
+    "ctaText": "Enquire"
+  },
+  "hero": {
+    "eyebrow": "A New Expression of Living",
+    "title": "La Isla",
+    "tag": "2, 3 & 4 BHK Luxury Residences",
+    "location": "Loliem, South Goa",
+    "videoSrc": "/assets/video/header-south-goa.mp4",
+    "posterSrc": "/assets/video/hero-poster.jpg",
+    "bgImg": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1600",
+    "form": {
+      "title": "Inquire About La Isla",
+      "buttonText": "Submit enquiry"
+    }
+  },
+  "about": {
+    "title": "About Vianaar",
+    "paragraphs": [
+      "For over 15 years, Vianaar has shaped some of Goa’s most sought-after second homes.",
+      "With a legacy of 100+ projects and over 1,200 homes, each space reflects a deeper way of living — thoughtful, nature-led, and enduring.",
+      "More than building homes, Vianaar creates environments that evolve with you — designed for a life that is lived."
+    ]
+  },
+  "loliem": {
+    "eyebrow": "Loliem",
+    "title": "Where Goa Feels Different",
+    "paragraphs": [
+      "Loliem is the kind of place you arrive at and immediately exhale.",
+      "Days unfold without much planning — a short walk to the cliffs, evenings by the sea, or quiet moments shared with neighbours who feel just as at ease."
+    ]
+  },
+  "mapSection": {
+    "title": "Our project on the map",
+    "mapImage": "/assets/map/la-isla-map.jpg",
+    "items": [
+      {
+        "id": 1,
+        "place": "Galgibaga Beach",
+        "meta": "4 mins · Turtle Nesting Beach"
+      },
+      {
+        "id": 2,
+        "place": "The Lalit Golf & Spa Resort",
+        "meta": "7 mins · Goa’s only Golf Course"
+      },
+      {
+        "id": 3,
+        "place": "Cotiago Wildlife Sanctuary",
+        "meta": "15 mins"
+      },
+      {
+        "id": 4,
+        "place": "NH 66",
+        "meta": "4 Lane highway connectivity near the site"
+      },
+      {
+        "id": 5,
+        "place": "Rich agricultural belt",
+        "meta": "Largest Production of Paddy Field, brown rice is supplied to entire Goa"
+      }
+    ]
+  },
+  "projectInfo": {
+    "title": "About the project",
+    "highlights": {
+      "title": "Highlights",
+      "items": [
+        "Vianaar’s first project in South Goa",
+        "Master plan shaped by the site’s natural contours",
+        "Indo-Portuguese architecture — verandahs, courtyards, shaded thresholds",
+        "Low-rise homes that keep open skies and green views",
+        "Native, low-maintenance landscape with tree-lined paths",
+        "Conscious design — heat-reducing walls, water-saving aerators, central energy cut-off",
+        "Curated interiors in soft palettes and natural textures",
+        "On-site Estate Manager and 300+ member facilities team"
+      ]
+    },
+    "clubhouse": {
+      "title": "Clubhouse — Loom House",
+      "description": "Loom House is not a clubhouse. It is a shared space where life is lived slowly — a short walk from every villa, organised around four ways to spend the day.",
+      "pillars": [
+        {
+          "heading": "Move & Play",
+          "description": "Swimming pool, gym, padel, pétanque, pickleball, kids pool"
+        },
+        {
+          "heading": "Pause & Breathe",
+          "description": "Spa & salon, steam room, sauna, ice bath, yoga, meditation"
+        },
+        {
+          "heading": "Gather & Connect",
+          "description": "All-day café, lounge, pool table, table tennis, games room, karaoke, movies"
+        },
+        {
+          "heading": "Peruse & Wonder",
+          "description": "Art, talks, live music, edible gardens"
+        }
+      ]
+    },
+    "renders": {
+      "title": "Renders",
+      "categories": [
+        {
+          "name": "2 BHK",
+          "items": [
+            {
+              "label": "Front View",
+              "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+              "label": "GF Verandah",
+              "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+              "label": "Pool Side View",
+              "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800"
+            }
+          ]
+        },
+        {
+          "name": "3 BHK",
+          "items": [
+            {
+              "label": "Front View",
+              "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+              "label": "Verandah View",
+              "image": "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+              "label": "Back View",
+              "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800"
+            }
+          ]
+        },
+        {
+          "name": "4 BHK",
+          "items": [
+            {
+              "label": "Grand Facade (Coming Soon)",
+              "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+              "label": "Infinity Pool Lounge (Coming Soon)",
+              "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+              "label": "Master Courtyard (Coming Soon)",
+              "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "isVisible": true,
+    "items": [
+      {
+        "id": 1,
+        "quote": "Vianaar homes are defined by their incredible relationship with nature. The integration of Portuguese style verandahs with lush Goa foliage offers an unbeatable sense of escape.",
+        "author": "Anjali & Vikram Sen",
+        "designation": "La Isla Villa Owners",
+        "date": "March 2026"
+      },
+      {
+        "id": 2,
+        "quote": "The focus on micro-climate control, water conservation and natural heat-reducing materials is what sets Vianaar apart. Truly sustainable luxury.",
+        "author": "Priya Nair",
+        "designation": "Architectural Critic",
+        "date": "January 2026"
+      }
+    ]
+  },
+  "press": {
+    "title": "Press Highlights",
+    "isVisible": true,
+    "items": [
+      {
+        "id": 1,
+        "publication": "Architectural Digest",
+        "headline": "Vianaar brings Portuguese heritage and ecological mindfulness to South Goa with La Isla.",
+        "link": "https://www.vianaar.com",
+        "date": "Feb 2026"
+      },
+      {
+        "id": 2,
+        "publication": "Forbes India",
+        "headline": "Redefining second homes in Goa: How Vianaar became the leader in ultra-luxury retreats over 15 years.",
+        "link": "https://www.vianaar.com",
+        "date": "April 2026"
+      }
+    ]
+  },
+  "footer": {
+    "title": "Get in Touch",
+    "copyright": "© 2026 Vianaar Homes Pvt. Ltd.",
+    "offices": [
+      {
+        "city": "Delhi",
+        "address": "84, 2nd Floor, Okhla Industrial Estate, Phase 3, New Delhi — 110020"
+      },
+      {
+        "city": "Goa — Mapusa",
+        "address": "Titanium Building, 5th Floor, Opposite Vision Hospital, Mapusa, Goa — 403519"
+      },
+      {
+        "city": "Goa — Parra",
+        "address": "325, Kholpa Waddo, Canca Parra, Goa — 403510"
+      }
+    ]
+  }
+}

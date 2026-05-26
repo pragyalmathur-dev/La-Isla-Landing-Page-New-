@@ -1,0 +1,2 @@
+Place your coastline and neighborhood map images (e.g., 'la-isla-map.jpg') here.
+Accessible at: /assets/map/la-isla-map.jpg
