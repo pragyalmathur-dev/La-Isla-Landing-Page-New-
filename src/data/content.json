@@ -170,17 +170,31 @@
     "items": [
       {
         "id": 1,
-        "quote": "Vianaar homes are defined by their incredible relationship with nature. The integration of Portuguese style verandahs with lush Goa foliage offers an unbeatable sense of escape.",
-        "author": "Anjali & Vikram Sen",
-        "designation": "La Isla Villa Owners",
-        "date": "March 2026"
+        "quote": "I am so happy with the apartment I have purchased in El Arbol that I decided to go ahead and invest in another residential property in Goa from Vianaar itself.",
+        "author": "Vikas Bajaj",
+        "designation": "Santaa Rosa and El Arbol",
+        "date": ""
       },
       {
         "id": 2,
-        "quote": "The focus on micro-climate control, water conservation and natural heat-reducing materials is what sets Vianaar apart. Truly sustainable luxury.",
-        "author": "Priya Nair",
-        "designation": "Architectural Critic",
-        "date": "January 2026"
+        "quote": "Vianaar's luxury homes in Goa are well designed in terms of light and space. The associated staff has been really positive and helpful, which again is a testimony to Vianaar's management.",
+        "author": "Gaiti Hasan",
+        "designation": "Sol Sienda",
+        "date": ""
+      },
+      {
+        "id": 3,
+        "quote": "It’s rare to find this quality of service from a property developer, or this eye for detail. We think Varun is setting new standards in his field.",
+        "author": "Tilottama Shome Sinha",
+        "designation": "La Mer",
+        "date": ""
+      },
+      {
+        "id": 4,
+        "quote": "Team Vianaar made the whole process of buying the apartment, registration etc. extremely simple. I have no hesitation in recommending Vianaar Homes as I feel it is the best builder in Goa today.",
+        "author": "Vikram Chandra",
+        "designation": "Santaa Teraa",
+        "date": ""
       }
     ]
   },

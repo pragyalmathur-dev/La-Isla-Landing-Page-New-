@@ -1,0 +1,6 @@
+Place your client testimonial videos inside this folder.
+Recommended file:
+- /public/assets/videos/testimonial_video.mp4
+
+This is referenced in App.tsx as the source for the left-side video player.
+You can overwrite, rename, or drop your MP4 here.

@@ -73,9 +73,12 @@ export default function App() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Force sync renders to always match content.json so render edits aren't cached
+        // Force sync renders and testimonials to always match content.json so developer edits aren't cached
         if (parsed.projectInfo) {
           parsed.projectInfo.renders = defaultContent.projectInfo.renders;
+        }
+        if (parsed.testimonials) {
+          parsed.testimonials = defaultContent.testimonials;
         }
         return parsed as LandingContent;
       } catch (e) {
@@ -127,6 +130,11 @@ export default function App() {
   
   // Custom fullscreen Lightbox for BHK renders
   const [lightboxImage, setLightboxImage] = useState<{ image: string; label: string } | null>(null);
+
+  // Testimonials section slideshow and video player states
+  const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const testimonialVideoRef = useRef<HTMLVideoElement>(null);
 
   // Video Background Control state
   const [isHeroVideoPlaying, setIsHeroVideoPlaying] = useState(true);
@@ -877,39 +885,101 @@ export default function App() {
       {/* ==================== CLIENT TESTIMONIALS ==================== */}
       {content.testimonials.isVisible && (
         <section id="testimonials" className="py-24 px-6 md:px-12 bg-brand-cream border-b border-brand-line/45">
-          <div className="container mx-auto">
-            <div className="text-center max-w-xl mx-auto mb-16">
-              <span className="font-sans text-xs uppercase tracking-[4px] text-green-brand block mb-2">Quality & Experience</span>
-              <h2 className="font-serif text-3xl md:text-5xl font-light text-brand-ink">
-                {content.testimonials.title}
-              </h2>
-              <div className="w-16 h-0.5 bg-green-brand mx-auto my-5" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {content.testimonials.items.map((testimonial) => (
-                <div 
-                  key={testimonial.id} 
-                  className="bg-brand-sand/30 border border-brand-line/50 p-8 rounded-xl flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Vector quote symbol */}
-                    <span className="block font-serif text-6xl text-green-brand/30 leading-none h-4">“</span>
-                    <p className="font-serif italic text-lg leading-relaxed text-brand-ink mb-6 relative z-10 pl-4">
-                      {testimonial.quote}
-                    </p>
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column: Testimonial Video Player */}
+              <div className="lg:col-span-7 w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden relative shadow-xl group bg-[#154736]/10 border border-brand-line/30">
+                {isVideoPlaying ? (
+                  <video
+                    ref={testimonialVideoRef}
+                    src="/assets/videos/testimonial_video.mp4"
+                    className="w-full h-full object-cover"
+                    controls
+                    autoPlay
+                    onError={(e) => {
+                      // Fallback gracefully to the header video if they haven't uploaded theirs yet
+                      console.log("Testimonial video not uploaded yet, playing fallback hero video.");
+                      e.currentTarget.src = "/assets/video/header-south-goa.mp4";
+                    }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 w-full h-full">
+                    <img
+                      src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200"
+                      alt="Vianaar Goa Luxury Life"
+                      className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                    {/* Dark contrast gradient */}
+                    <div className="absolute inset-0 bg-brand-ink/10 transition-opacity duration-300 group-hover:bg-brand-ink/5" />
+                    
+                    {/* Semi-transparent Play Button Overlay matching reference image */}
+                    <button
+                      onClick={() => setIsVideoPlaying(true)}
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#4D8F75]/80 hover:bg-[#154736]/90 text-white flex items-center justify-center backdrop-blur-[2px] shadow-2xl transition-all duration-300 scale-95 hover:scale-100 cursor-pointer border border-white/20"
+                      aria-label="Play Testimonial Video"
+                    >
+                      <Play className="w-6 h-6 sm:w-8 sm:h-8 text-white fill-white translate-x-[2px]" />
+                    </button>
                   </div>
-                  <div className="flex items-center gap-4 border-t border-brand-line/30 pt-4 mt-2">
-                    <div className="w-10 h-10 rounded-full bg-green-brand/10 text-green-brand flex items-center justify-center font-serif text-base font-bold">
-                      {testimonial.author.charAt(0)}
-                    </div>
-                    <div>
-                      <h4 className="font-sans font-semibold text-brand-ink text-sm">{testimonial.author}</h4>
-                      <p className="font-sans text-xs text-brand-muted">{testimonial.designation} · {testimonial.date}</p>
-                    </div>
+                )}
+              </div>
+
+              {/* Right Column: Active Review Slider (Centered vertically) */}
+              <div className="lg:col-span-5 flex flex-col justify-between h-full min-h-[320px] lg:pl-4">
+                <div>
+                  {/* Top line accent matching Vianaar branding in reference image */}
+                  <div className="w-full h-[1.5px] bg-[#4D8F75]/35 mb-8" />
+                  
+                  {/* Text slider using Motion for buttery smooth transitions */}
+                  <div className="relative min-h-[160px] flex flex-col justify-center">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeTestimonialIdx}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                      >
+                        <p className="font-serif text-[#154736] text-[18px] sm:text-[21px] leading-relaxed font-light mb-8">
+                          “{content.testimonials.items[activeTestimonialIdx]?.quote || ""}”
+                        </p>
+                        
+                        <div className="mt-4">
+                          <h4 className="font-sans font-bold text-[#154736] text-[15px] sm:text-[16px] tracking-wide uppercase">
+                            {content.testimonials.items[activeTestimonialIdx]?.author || ""}
+                          </h4>
+                          <p className="font-sans text-[12px] sm:text-[13px] text-brand-muted/80 mt-1 italic tracking-wide">
+                            {content.testimonials.items[activeTestimonialIdx]?.designation || ""}
+                          </p>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 </div>
-              ))}
+
+                {/* Pagination Dots at the bottom matching reference screenshot */}
+                <div className="flex items-center gap-3.5 mt-8">
+                  {content.testimonials.items.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        setActiveTestimonialIdx(idx);
+                        setIsVideoPlaying(false);
+                      }}
+                      className={`w-[8.5px] h-[8.5px] rounded-full transition-all duration-300 cursor-pointer ${
+                        activeTestimonialIdx === idx 
+                          ? 'bg-[#154736] scale-115' 
+                          : 'bg-[#4D8F75]/35 hover:bg-[#4D8F75]/75'
+                      }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+                
+              </div>
+
             </div>
           </div>
         </section>
