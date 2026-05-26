@@ -724,18 +724,17 @@ export default function App() {
       {/* ==================== LOLIEM PROMO BLOCK ==================== */}
       <section id="loliem" className="py-28 px-6 md:px-12 bg-brand-sage text-center text-brand-ink relative overflow-hidden">
         
-        {/* Optional background image with a luxurious overlay */}
+        {/* Optional background image with high elegance and transparency */}
         {content.loliem.bgImage && (
           <div className="absolute inset-0 z-0 animate-fade-in">
             <img 
               src={content.loliem.bgImage} 
               alt="Loliem background scene" 
-              className="w-full h-full object-cover object-center select-none"
+              className="w-full h-full object-cover object-center select-none opacity-[0.22] mix-blend-multiply"
               referrerPolicy="no-referrer"
             />
-            {/* Elegant multi-layered gradient overlay to match the brand aesthetic & guarantee flawless legibility */}
-            <div className="absolute inset-0 bg-[#e7eee8]/90 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#e3eae4]/95 via-[#e3eae4]/85 to-[#e3eae4]/95" />
+            {/* Balanced blend layer for ultimate text legibility */}
+            <div className="absolute inset-0 bg-[#e3eae4]/40" />
           </div>
         )}
 
@@ -744,23 +743,26 @@ export default function App() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] border border-green-brand/10 rounded-full border-dashed pointer-events-none" />
 
         <div className="container mx-auto max-w-3xl relative z-10 flex flex-col items-center">
-          <p className="font-sans text-[11px] uppercase tracking-[4px] text-green-brand mb-4">
-            {content.loliem.eyebrow}
-          </p>
-          <h2 className="font-serif text-4xl md:text-6xl italic font-normal text-brand-ink leading-tight mb-6">
-            {content.loliem.title}
-          </h2>
-          
-          <div className="w-16 h-0.5 bg-green-brand my-6" />
+          {/* Glassmorphic card frame matching the lead form aesthetic */}
+          <div className="bg-[#8ca89a]/12 backdrop-blur-[6px] border border-white/25 rounded-[16px] p-8 md:p-14 shadow-lg w-full flex flex-col items-center">
+            <p className="font-sans text-[11px] uppercase tracking-[4px] text-green-brand mb-4">
+              {content.loliem.eyebrow}
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl italic font-normal text-brand-ink leading-tight mb-6">
+              {content.loliem.title}
+            </h2>
+            
+            <div className="w-16 h-0.5 bg-green-brand/40 my-5" />
 
-          <div className="space-y-4 max-w-2xl text-brand-muted font-sans text-lg md:text-xl font-light leading-relaxed">
-            {content.loliem.paragraphs.map((p, index) => (
-              <p key={index}>{p}</p>
-            ))}
-          </div>
+            <div className="space-y-4 max-w-2xl text-brand-ink/90 font-sans text-base md:text-lg font-light leading-relaxed">
+              {content.loliem.paragraphs.map((p, index) => (
+                <p key={index}>{p}</p>
+              ))}
+            </div>
 
-          <div className="mt-12">
-            <Compass className="w-10 h-10 text-green-brand/70 animate-spin" style={{ animationDuration: '25s' }} />
+            <div className="mt-10">
+              <Compass className="w-10 h-10 text-green-brand/70 animate-spin" style={{ animationDuration: '25s' }} />
+            </div>
           </div>
         </div>
       </section>
