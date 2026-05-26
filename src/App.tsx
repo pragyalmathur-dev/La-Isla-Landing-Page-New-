@@ -724,17 +724,15 @@ export default function App() {
       {/* ==================== LOLIEM PROMO BLOCK ==================== */}
       <section id="loliem" className="py-28 px-6 md:px-12 bg-brand-sage text-center text-brand-ink relative overflow-hidden">
         
-        {/* Optional background image with high elegance and transparency */}
+        {/* Optional background image with high elegance and a subtle blur */}
         {content.loliem.bgImage && (
-          <div className="absolute inset-0 z-0 animate-fade-in">
+          <div className="absolute inset-0 z-0 animate-fade-in overflow-hidden">
             <img 
               src={content.loliem.bgImage} 
               alt="Loliem background scene" 
-              className="w-full h-full object-cover object-center select-none opacity-[0.22] mix-blend-multiply"
+              className="w-full h-full object-cover object-center select-none blur-[4px] scale-[1.03]"
               referrerPolicy="no-referrer"
             />
-            {/* Balanced blend layer for ultimate text legibility */}
-            <div className="absolute inset-0 bg-[#e3eae4]/40" />
           </div>
         )}
 
