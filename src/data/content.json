@@ -204,17 +204,57 @@
     "items": [
       {
         "id": 1,
-        "publication": "Architectural Digest",
-        "headline": "Vianaar brings Portuguese heritage and ecological mindfulness to South Goa with La Isla.",
-        "link": "https://www.vianaar.com",
-        "date": "Feb 2026"
+        "publication": "Esquire India",
+        "headline": "At Vianaar, Varun Nagpal wants you to feel nostalgic for a place you’ve never lived",
+        "link": "https://www.esquireindia.co.in/culture/art-and-design/at-vianaar-varun-nagpal-wants-you-to-feel-nostalgic-for-a-place-youve-never-lived"
       },
       {
         "id": 2,
-        "publication": "Forbes India",
-        "headline": "Redefining second homes in Goa: How Vianaar became the leader in ultra-luxury retreats over 15 years.",
-        "link": "https://www.vianaar.com",
-        "date": "April 2026"
+        "publication": "The Economic Times",
+        "headline": "NRI investors shift second home bets to domestic hotspots amid global uncertainty",
+        "link": "https://economictimes.indiatimes.com/nri/invest/nri-investors-shift-second-home-bets-to-domestic-hotspots-amid-global-uncertainty/articleshow/130743925.cms?from=mdr"
+      },
+      {
+        "id": 3,
+        "publication": "Times Entertainment",
+        "headline": "Why shorter trips are becoming more popular among travellers",
+        "link": "https://timesofindia.indiatimes.com/life-style/travel/destinations/why-shorter-trips-are-becoming-more-popular-among-travellers/articleshow/130681912.cms"
+      },
+      {
+        "id": 4,
+        "publication": "Bazaar",
+        "headline": "The Art of Living: Exquisite getaway sanctuaries crafting timeless luxury",
+        "link": "https://www.magzter.com/stories/lifestyle/Harpers-Bazaar-India/ART-OF-LIVING-114011?srsltid=AfmBOorH365ngXrWStCVFgUfu1F1T5HIWK_bNFhdhL83tTKPiG81s-zK"
+      },
+      {
+        "id": 5,
+        "publication": "Financial Express",
+        "headline": "Demand for luxury second homes and eco-retreats on the rise",
+        "link": "https://www.financialexpress.com/business/infrastructure/demand-for-luxury-second-homes-on-the-rise/4103357/"
+      },
+      {
+        "id": 6,
+        "publication": "Outlook Luxe",
+        "headline": "Artfelt Homes: Inside the bespoke architectural journey of Vianaar Homes",
+        "link": "https://luxe.outlookindia.com/art-design/home/artfelt-homes-inside-the-journey-of-vianaar-homes"
+      },
+      {
+        "id": 7,
+        "publication": "Architectural Digest",
+        "headline": "Gorgeous homes in Goa you'd move into in a heartbeat",
+        "link": "https://www.architecturaldigest.in/story/gorgeous-homes-in-goa-youd-move-into-in-a-heartbeat/"
+      },
+      {
+        "id": 8,
+        "publication": "Business Standard",
+        "headline": "As AQI levels hit sky-high levels, urban Indians gravitate to Goa getaway homes",
+        "link": "https://www.business-standard.com/finance/personal-finance/as-aqi-levels-hit-sky-high-levels-urban-indians-gravitate-to-getaway-homes-125121100932_1.html"
+      },
+      {
+        "id": 9,
+        "publication": "The Daily Guardian",
+        "headline": "Building ecological dream properties and redefining standards",
+        "link": "https://www.vianaar.com/pressroom/vianaar-in-the-daily-guardian"
       }
     ]
   },

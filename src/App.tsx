@@ -21,6 +21,7 @@ import {
   Info,
   Layers,
   Heart,
+  ChevronLeft,
   ChevronRight,
   Eye,
   Building,
@@ -55,6 +56,77 @@ const getFallbackImage = (path: string): string => {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg.trim())}`;
 };
 
+const renderPressLogo = (publicationName: string) => {
+  switch (publicationName) {
+    case "Esquire India":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[130px] text-current select-none" fill="currentColor">
+          <text x="50%" y="36" fontFamily="'Playfair Display', 'Didot', 'Georgia', serif" fontSize="23" fontWeight="900" letterSpacing="0.5" textAnchor="middle">Esquire</text>
+          <text x="50%" y="49" fontFamily="'Inter', sans-serif" fontSize="6" fontWeight="700" letterSpacing="4.5" textAnchor="middle" fill="#8fa499">INDIA</text>
+        </svg>
+      );
+    case "The Economic Times":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[140px] text-current select-none" fill="currentColor">
+          <text x="50%" y="32" fontFamily="'Times New Roman', serif" fontWeight="800" fontSize="16" fontStyle="italic" letterSpacing="-0.5" text-anchor="middle">The Economic Times</text>
+          <rect x="25" y="40" width="150" height="1" fill="currentColor" opacity="0.8"/>
+        </svg>
+      );
+    case "Times Entertainment":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[145px] text-current select-none" fill="currentColor">
+          <text x="50%" y="28" fontFamily="'Times New Roman', serif" fontSize="20" fontWeight="bold" letterSpacing="0.5" textAnchor="middle">TIMES</text>
+          <text x="50%" y="46" fontFamily="'Inter', sans-serif" fontSize="7.5" fontWeight="600" letterSpacing="3" textAnchor="middle" fill="#708a7e">ENTERTAINMENT</text>
+        </svg>
+      );
+    case "Bazaar":
+      return (
+        <svg viewBox="0 0 200 60" className="h-[25px] w-auto max-w-[110px] text-current select-none animate-pulse-subtle" fill="currentColor">
+          <text x="50%" y="40" fontFamily="'Didot', 'Bodoni MT', 'Playfair Display', serif" fontSize="29" fontWeight="bold" letterSpacing="2.5" textAnchor="middle">BAZAAR</text>
+        </svg>
+      );
+    case "Financial Express":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[145px] text-current select-none" fill="currentColor">
+          <text x="50%" y="28" fontFamily="'Inter', sans-serif" fontSize="14" fontWeight="800" letterSpacing="0.5" textAnchor="middle">FINANCIAL</text>
+          <text x="50%" y="46" fontFamily="'Playfair Display', serif" fontSize="13.5" fontWeight="bold" fontStyle="italic" textAnchor="middle">Express</text>
+        </svg>
+      );
+    case "Outlook Luxe":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[130px] text-current select-none" fill="currentColor">
+          <text x="50%" y="28" fontFamily="'Inter', sans-serif" fontSize="17" fontWeight="900" letterSpacing="1" textAnchor="middle">Outlook</text>
+          <text x="50%" y="47" fontFamily="'Playfair Display', serif" fontSize="10.5" fontStyle="italic" fontWeight="bold" letterSpacing="2" textAnchor="middle" fill="#4D8F75">LUXE</text>
+        </svg>
+      );
+    case "Architectural Digest":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[140px] text-current select-none" fill="currentColor">
+          <text x="50%" y="26" fontFamily="'Times New Roman', serif" fontSize="14" fontWeight="bold" letterSpacing="3.5" textAnchor="middle">ARCHITECTURAL</text>
+          <text x="50%" y="46" fontFamily="'Times New Roman', serif" fontSize="14" fontWeight="bold" letterSpacing="3.5" textAnchor="middle">DIGEST</text>
+        </svg>
+      );
+    case "Business Standard":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[140px] text-current select-none" fill="currentColor">
+          <rect x="20" y="10" width="160" height="1.5" fill="currentColor"></rect>
+          <text x="50%" y="32" fontFamily="'Times New Roman', serif" fontSize="16.5" fontWeight="bold" letterSpacing="0.5" textAnchor="middle">Business Standard</text>
+          <rect x="20" y="40" width="160" height="1.5" fill="currentColor"></rect>
+        </svg>
+      );
+    case "The Daily Guardian":
+      return (
+        <svg viewBox="0 0 200 60" className="h-6 w-auto max-w-[150px] text-current select-none" fill="currentColor">
+          <text x="50%" y="28" fontFamily="'Times New Roman', serif" fontSize="14" fontWeight="bold" letterSpacing="0.5" textAnchor="middle">The Daily Guardian</text>
+          <line x1="20" y1="36" x2="180" y2="36" stroke="currentColor" strokeWidth="1.2"></line>
+          <text x="50%" y="48" fontFamily="'Inter', sans-serif" fontSize="7" fontWeight="bold" letterSpacing="4" textAnchor="middle" fill="#708a7e">ESTD 2020</text>
+        </svg>
+      );
+    default:
+      return <span className="font-serif font-bold text-xs tracking-widest">{publicationName}</span>;
+  }
+};
+
 export default function App() {
   // --- Content State initialized with local storage persistence ---
   const [content, setContent] = useState<LandingContent>(() => {
@@ -79,6 +151,9 @@ export default function App() {
         }
         if (parsed.testimonials) {
           parsed.testimonials = defaultContent.testimonials;
+        }
+        if (parsed.press) {
+          parsed.press = defaultContent.press;
         }
         return parsed as LandingContent;
       } catch (e) {
@@ -135,6 +210,18 @@ export default function App() {
   const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const testimonialVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Press Highlight index state and auto rotation interval of 7.5 seconds
+  const [activePressIdx, setActivePressIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (content.press && content.press.items && content.press.items.length > 0) {
+        setActivePressIdx((prev) => (prev + 1) % content.press.items.length);
+      }
+    }, 7500);
+    return () => clearInterval(interval);
+  }, [content.press?.items?.length]);
 
   // Video Background Control state
   const [isHeroVideoPlaying, setIsHeroVideoPlaying] = useState(true);
@@ -278,13 +365,24 @@ export default function App() {
       
       {/* ==================== UPPER LOGO HEADER ==================== */}
       <header className={`fixed top-0 left-0 right-0 z-40 px-6 py-4 md:px-12 flex items-center justify-between transition-all duration-300 ${activeSection !== 'hero' ? 'bg-brand-cream/90 backdrop-blur-md shadow-sm border-b border-brand-line/30' : 'bg-transparent'}`}>
-        <a href="#" className="flex items-center gap-2 group" onClick={(e) => { e.preventDefault(); scrollToAnchor("hero"); }}>
-          <img 
-            src={content.site.logo} 
-            alt={content.site.logoAlt} 
-            className={`h-11 md:h-14 w-auto transition-all duration-300 ${activeSection === 'hero' ? 'brightness-0 invert' : 'brightness-95 contrast-100'}`} 
-          />
-        </a>
+        <div className="flex items-center gap-3">
+          {/* Mobile Menu Trigger (only shown on mobile screens < md) */}
+          <button 
+            onClick={() => setIsSideMenuOpen(true)}
+            className="md:hidden flex w-10 h-10 items-center justify-center -ml-2 text-[#154736] focus:outline-none bg-transparent group cursor-pointer hover:scale-105 transition-transform duration-200"
+            aria-label="Open menu"
+          >
+            <Menu className={`w-6 h-6 stroke-[1.5] transition-all duration-300 ${activeSection === 'hero' ? 'text-white' : 'text-[#154736]'}`} />
+          </button>
+
+          <a href="#" className="flex items-center gap-2 group" onClick={(e) => { e.preventDefault(); scrollToAnchor("hero"); }}>
+            <img 
+              src={content.site.logo} 
+              alt={content.site.logoAlt} 
+              className={`h-11 md:h-14 w-auto transition-all duration-300 ${activeSection === 'hero' ? 'brightness-0 invert' : 'brightness-95 contrast-100'}`} 
+            />
+          </a>
+        </div>
 
         <div>
           <button 
@@ -299,12 +397,12 @@ export default function App() {
           </button>
         </div>
       </header>
-
+ 
       {/* ==================== SIDE NAVIGATION (RAIL & PANEL) ==================== */}
       <div className="fixed left-0 top-0 bottom-0 z-50 flex pointer-events-none" aria-label="Page Sections">
         
-        {/* Transparent Left Rail which contains trigger button and the 7 pagination dots */}
-        <div className="w-[100px] flex flex-col items-center justify-start pt-[120px] pointer-events-auto h-full pr-4">
+        {/* Transparent Left Rail which contains trigger button and the 7 pagination dots (Hidden on mobile < md to prevent overlapping content) */}
+        <div className="hidden md:flex w-[100px] flex-col items-center justify-start pt-[120px] pointer-events-auto h-full pr-4">
           
           {/* Menu Toggle Trigger */}
           {!isSideMenuOpen ? (
@@ -324,7 +422,7 @@ export default function App() {
               <X className="w-6 h-6 stroke-[1.5]" />
             </button>
           )}
-
+ 
           {/* Dots column matching all 7 sections */}
           <div className="flex flex-col gap-6 mt-[60px] items-center">
             {[
@@ -360,13 +458,22 @@ export default function App() {
             })}
           </div>
         </div>
-
+ 
         {/* Sliding Side Navigation Panel in Pine Green (exactly as in Image 2) */}
         <div 
           className={`fixed left-0 top-0 bottom-0 w-full max-w-[360px] bg-[#154736] text-white flex flex-col pointer-events-auto shadow-2xl transition-transform duration-500 z-40 ease-out ${
             isSideMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
+          {/* Mobile-only Close Button inside the navigation panel (since left rail and its close button are hidden on mobile) */}
+          <button 
+            onClick={() => setIsSideMenuOpen(false)}
+            className="md:hidden absolute top-6 right-6 w-10 h-10 flex items-center justify-center text-white/80 hover:text-white bg-white/5 active:bg-white/10 rounded-full transition-all focus:outline-none cursor-pointer z-50"
+            aria-label="Close menu"
+          >
+            <X className="w-6 h-6 stroke-[1.5]" />
+          </button>
+
           <div className="flex flex-col h-full pt-[120px] pb-12 pr-6 pl-12 justify-between">
             <div>
               {/* Site Eyebrow */}
@@ -464,12 +571,12 @@ export default function App() {
                 {content.hero.eyebrow}
               </span>
               
-              <h1 className="font-serif text-6xl sm:text-7xl md:text-[88px] font-normal leading-[1.05] tracking-tight mb-8 text-white">
+              <h1 className="font-serif text-4xl sm:text-7xl md:text-[88px] font-normal leading-[1.05] tracking-tight mb-8 text-white">
                 {content.hero.title}
               </h1>
 
               <div className="space-y-4">
-                <p className="font-serif italic text-xl md:text-[25px] text-white/95 leading-normal">
+                <p className="font-serif italic text-lg sm:text-xl md:text-[25px] text-white/95 leading-normal">
                   {content.hero.tag}
                 </p>
                 <p className="font-sans text-[11px] text-[#ebe7df] uppercase tracking-[4px] font-light">
@@ -987,43 +1094,126 @@ export default function App() {
 
       {/* ==================== PRESS HIGHLIGHTS ==================== */}
       {content.press.isVisible && (
-        <section id="press" className="py-24 px-6 md:px-12 bg-brand-sage">
+        <section id="press" className="py-24 px-6 md:px-12 bg-brand-sage overflow-hidden">
           <div className="container mx-auto">
             <div className="text-center max-w-xl mx-auto mb-16">
-              <span className="font-sans text-xs uppercase tracking-[4px] text-green-brand block mb-2">Featured Publication Press</span>
+              <span className="font-sans text-xs uppercase tracking-[4px] text-green-brand block mb-2">Featured Press Coverage</span>
               <h2 className="font-serif text-3xl md:text-5xl font-light text-brand-ink">
                 {content.press.title}
               </h2>
-              <div className="w-16 h-0.5 bg-green-brand mx-auto my-5" />
+              <div className="w-16 h-0.5 bg-green-brand/40 mx-auto my-5" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {content.press.items.map((item) => (
-                <a 
-                  href={item.link}
-                  key={item.id}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block bg-brand-cream border border-brand-line/45 hover:border-green-brand/30 hover:shadow-lg p-8 rounded-xl transition-all duration-300 group cursor-pointer"
+            {/* Slider Container with Arrows inside a gorgeous, wide frame */}
+            <div className="relative max-w-5xl mx-auto px-12 md:px-16">
+              
+              {/* Manual Nav Arrows overlapping the left and right gutters */}
+              <button
+                onClick={() => {
+                  setActivePressIdx((prev) => (prev === 0 ? content.press.items.length - 1 : prev - 1));
+                }}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-brand-cream/90 hover:bg-white text-[#154736] flex items-center justify-center shadow-md border border-brand-line/50 hover:scale-105 transition-all backdrop-blur-[4px] cursor-pointer"
+                aria-label="Previous Press Coverage"
+              >
+                <ChevronLeft className="w-5 h-5 stroke-[2]" />
+              </button>
+
+              <button
+                onClick={() => {
+                  setActivePressIdx((prev) => (prev + 1) % content.press.items.length);
+                }}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-brand-cream/90 hover:bg-white text-[#154736] flex items-center justify-center shadow-md border border-brand-line/50 hover:scale-105 transition-all backdrop-blur-[4px] cursor-pointer"
+                aria-label="Next Press Coverage"
+              >
+                <ChevronRight className="w-5 h-5 stroke-[2]" />
+              </button>
+
+              {/* Viewport mask */}
+              <div className="w-full overflow-hidden py-4">
+                {/* Horizontal slider ribbon of logos */}
+                <div 
+                  className="flex flex-row items-center gap-6 md:gap-8 transition-transform duration-500 ease-out"
+                  style={{
+                    transform: `translateX(calc(50% - ${activePressIdx * (220 + 24) + (220 / 2)}px))`
+                  }}
                 >
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="font-serif text-xl font-bold tracking-tight text-green-brand border-l-2 border-green-brand pl-3">
-                      {item.publication}
-                    </span>
-                    <span className="font-sans text-[11px] text-brand-muted uppercase tracking-wider">
-                      {item.date}
-                    </span>
-                  </div>
-                  <p className="font-sans font-light text-brand-ink leading-relaxed mb-4 group-hover:text-green-brand transition-colors text-base">
-                    "{item.headline}"
+                  {content.press.items.map((item, idx) => {
+                    const isActive = activePressIdx === idx;
+                    return (
+                      <a
+                        href={item.link}
+                        key={item.id}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`flex-shrink-0 w-[220px] h-[76px] md:h-[86px] rounded-xl flex items-center justify-center border transition-all duration-300 group cursor-pointer ${
+                          isActive
+                            ? 'bg-brand-cream border-[#154736] shadow-md scale-105 text-[#154736]'
+                            : 'bg-brand-cream/40 border-brand-line/30 text-[#154736]/35 hover:bg-brand-cream/70 hover:text-[#154736]/70 hover:border-brand-line/60'
+                        }`}
+                        title={`Read cover article from ${item.publication}`}
+                        onClick={(e) => {
+                          // Allow direct click navigation only if already centered, else center it
+                          if (!isActive) {
+                            e.preventDefault();
+                            setActivePressIdx(idx);
+                          }
+                        }}
+                      >
+                        <div className="px-4 py-2 transition-transform duration-300 group-hover:scale-102 flex items-center justify-center w-full h-full">
+                          {renderPressLogo(item.publication)}
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Slider Progress Dots showing total 9 items beautifully */}
+              <div className="flex items-center justify-center gap-2 mt-8">
+                {content.press.items.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActivePressIdx(idx)}
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      activePressIdx === idx
+                        ? 'w-6 bg-[#154736]'
+                        : 'bg-[#154736]/20 hover:bg-[#154736]/50'
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+            </div>
+
+            {/* Dynamic Article headline block for the active slide logo button */}
+            <div className="relative max-w-2xl mx-auto mt-12 px-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activePressIdx}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-center"
+                >
+                  <p className="font-serif italic text-brand-ink text-[17px] sm:text-[20px] leading-relaxed font-light mb-5">
+                    “{content.press.items[activePressIdx]?.headline || ""}”
                   </p>
-                  <span className="inline-flex items-center gap-1.5 font-sans text-xs uppercase tracking-widest text-green-brand font-semibold border-b border-transparent group-hover:border-green-brand transition-all">
+                  
+                  <a 
+                    href={content.press.items[activePressIdx]?.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 font-sans text-[11px] font-bold uppercase tracking-[2px] text-[#4d8f75] hover:text-[#154736] transition-colors duration-300 select-none cursor-pointer group"
+                  >
                     Read coverage article
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </a>
-              ))}
+                  </a>
+                </motion.div>
+              </AnimatePresence>
             </div>
+
           </div>
         </section>
       )}
