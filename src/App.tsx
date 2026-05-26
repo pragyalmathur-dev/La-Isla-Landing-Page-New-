@@ -966,11 +966,17 @@ export default function App() {
 
           </div>
 
-          {/* ==================== 3D PROJECT RENDERS CATEGORIES ==================== */}
-          <div className="mt-24 pt-16 border-t border-brand-line/40">
-            <h3 className="font-serif text-3xl font-light text-brand-ink text-center mb-4">
+        </div>
+      </section>
+
+      {/* ==================== 3D PROJECT RENDERS CATEGORIES ==================== */}
+      <section className="py-24 px-6 md:px-12 bg-brand-sage relative overflow-hidden border-t border-brand-line/45">
+        <div className="container mx-auto relative z-10">
+          <div className="pt-4">
+            <h3 className="font-serif text-3xl md:text-5xl font-light text-brand-ink text-center mb-4">
               {content.projectInfo.renders.title}
             </h3>
+            <div className="w-16 h-0.5 bg-green-brand/45 mx-auto my-5" />
             
             {/* Horizontal Tabs selector */}
             <div className="flex items-center justify-center gap-3 mb-12">
