@@ -31,6 +31,41 @@ import {
 import defaultContent from "./data/content.json";
 import { LandingContent, TestimonialItem, PressItem } from "./types";
 
+const getFallbackImage = (path: string): string => {
+  if (!path) return "";
+  if (path.includes("2BHK_FrontView")) {
+    return "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("2BHK_VerandahView")) {
+    return "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("2BHK_PoolSideView")) {
+    return "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("3BHK_FrontView")) {
+    return "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("3BHK_VerandahView")) {
+    return "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("3BHK_BackView")) {
+    return "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("4BHK_FrontView")) {
+    return "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("4BHK_GF_Verandah")) {
+    return "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("4BHK_FF_Verandah")) {
+    return "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800";
+  }
+  if (path.includes("4BHK_BackView")) {
+    return "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800";
+  }
+  return path;
+};
+
 export default function App() {
   // --- Content State initialized with local storage persistence ---
   const [content, setContent] = useState<LandingContent>(() => {
@@ -262,11 +297,11 @@ export default function App() {
           {!isSideMenuOpen ? (
             <button 
               onClick={() => setIsSideMenuOpen(true)}
-              className="w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none bg-transparent group"
+              className="w-10 h-10 flex flex-col justify-center items-center gap-[5px] focus:outline-none bg-transparent group"
               aria-label="Open menu"
             >
               <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
-              <span className={`w-3.5 h-[1.5px] rounded-full self-start ml-2 transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
               <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isNavDark ? 'bg-white' : 'bg-[#154736]'}`} />
             </button>
           ) : (
@@ -804,6 +839,12 @@ export default function App() {
                             src={renderItem.image} 
                             alt={renderItem.label} 
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                            onError={(e) => {
+                              const fallback = getFallbackImage(renderItem.image);
+                              if (e.currentTarget.src !== fallback) {
+                                e.currentTarget.src = fallback;
+                              }
+                            }}
                           />
                           <div className="absolute inset-0 bg-brand-ink/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <span className="bg-white/90 backdrop-blur text-brand-ink font-sans text-xs uppercase tracking-widest px-4 py-2 rounded shadow-md flex items-center gap-1.5">
@@ -1126,6 +1167,12 @@ export default function App() {
                 src={lightboxImage.image} 
                 alt={lightboxImage.label} 
                 className="w-full max-h-[75vh] object-contain border border-white/10 rounded-lg shadow-2xl bg-brand-ink" 
+                onError={(e) => {
+                  const fallback = getFallbackImage(lightboxImage.image);
+                  if (e.currentTarget.src !== fallback) {
+                    e.currentTarget.src = fallback;
+                  }
+                }}
               />
               
               <p className="text-white/90 font-serif text-lg tracking-wide uppercase mt-4 text-center select-all bg-black/40 px-6 py-2 rounded-full border border-white/5 backdrop-blur-md">
